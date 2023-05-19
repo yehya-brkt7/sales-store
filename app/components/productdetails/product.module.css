@@ -1,0 +1,126 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 40px;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.firstcolumn {
+  flex: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 40px;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.secondcolumn {
+  flex: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 80px;
+  justify-content: flex-start;
+  row-gap: 10px;
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.imagegallery {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .firstcolumn,
+  .secondcolumn {
+    flex-basis: 100%; /* Make columns occupy full width on smaller screens */
+  }
+
+  .firstcolumn {
+    margin-left: 20px;
+  }
+  .secondcolumn {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.infocontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: 70px;
+}
+
+.firstinfocolumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  row-gap: 20px;
+}
+
+.reviews {
+  display: flex;
+  align-items: center;
+}
+.rating {
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: 10px;
+}
+.price del {
+  text-decoration: line-through;
+  font-size: 20px;
+}
+
+.price span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.price div {
+  color: red;
+  font-size: 24px;
+}
+
+.secondcolumn button {
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: black;
+  width: 170px;
+  height: 50px;
+  font-size: 18px;
+  color: white;
+  transition: transform 0.2s linear 0s;
+}
+
+.secondcolumn button:hover {
+  transform: scale(1.1);
+}
+
+.sizedropdown {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.sizedropdown span {
+  font-size: 20px;
+}
