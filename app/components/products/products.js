@@ -38,19 +38,20 @@ function Products({ products }) {
     router.push(`/products/${id}`);
   };
 
-  const filteredProducts = products.filter((product) =>
-    (selectedcategory === "" ||
-      selectedcategory.toLowerCase() ===
-        product.categories[0].name.toLowerCase()) &&
-    selectedsize.length > 3
-      ? product.attributes[0].options.some((sizeOption) =>
-          selectedsize.includes(sizeOption)
-        )
-      : product.attributes[0].options.includes(selectedsize) &&
-        product.attributes[1].options.includes(selectedcolor) &&
-        product.attributes[3].options.includes(selectedtype) &&
-        product.price >= pricerange[0] &&
-        product.price <= pricerange[1]
+  const filteredProducts = products.filter(
+    (product) =>
+      (selectedcategory === "" ||
+        selectedcategory.toLowerCase() ===
+          product.categories[0].name.toLowerCase()) &&
+      (selectedsize.length > 3
+        ? product.attributes[0].options.some((sizeOption) =>
+            selectedsize.includes(sizeOption)
+          )
+        : product.attributes[0].options.includes(selectedsize)) &&
+      product.attributes[1].options.includes(selectedcolor) &&
+      product.attributes[3].options.includes(selectedtype) &&
+      product.price >= pricerange[0] &&
+      product.price <= pricerange[1]
   );
 
   const [filter, setFilter] = useState("");

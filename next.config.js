@@ -5,6 +5,6 @@ module.exports = nextConfig;
 
 module.exports = {
   images: {
-    domains: ["localhost"],
+    domains: ["dev-nextjs-store.pantheonsite.io"],
   },
 };
