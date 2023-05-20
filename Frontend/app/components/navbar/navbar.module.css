@@ -1,0 +1,86 @@
+.navbar {
+  width: 100%;
+}
+/* 
+.logo,
+.navlink {
+  transition: transform 0.2s linear 0s !important;
+  border-radius: 25px;
+}
+
+.link {
+  color: rgb(5, 4, 4) !important;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 5px;
+  transition: border-bottom 0.2s ease 0.2s;
+}
+
+.link:hover {
+  border-bottom: 1px solid black;
+  transition-delay: 0s;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.navlink:hover {
+  transform: scale(1.1);
+} */
+
+.logo,
+.navlink {
+  transition: transform 0.2s linear 0s !important;
+  border-radius: 25px;
+}
+
+.link {
+  color: grey !important;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.navlink:hover {
+  transform: scale(1.08);
+}
+
+@media only screen and (max-width: 990px) {
+  .navlink:hover {
+    transform: scale(0.99);
+  }
+  .checkoutButton,
+  .checkoutIcon {
+    margin-bottom: 20px;
+  }
+
+  .checkoutIcon {
+    margin-top: 20px;
+  }
+  .checkoutIcon:hover {
+    transform: scale(1.1) !important;
+  }
+}
+
+.checkoutIcon {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 20px !important;
+  background-color: bisque;
+  padding: 10px !important;
+  border-radius: 50%;
+  margin-right: 20px;
+  height: 50px !important;
+  width: 50px !important;
+  transition: transform 0.2s linear 0s;
+}
+
+.checkoutButton {
+  margin-right: 30px;
+}

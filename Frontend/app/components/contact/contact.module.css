@@ -1,0 +1,140 @@
+.main {
+  display: flex;
+  background-color: black;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.firstcolumn {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex: 1 0 33.33%;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.secondcolumn {
+  flex: 2 0 66.67%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  /* flex-wrap: wrap; */
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .firstcolumn,
+  .secondcolumn {
+    flex: 1 0 100%;
+  }
+}
+
+.background {
+  object-fit: cover;
+  /* display: none; */
+  width: 100%;
+  height: 90vh;
+  position: relative;
+  transition: transform 0.2s linear 0s;
+}
+.background:hover {
+  transform: scale(0.95);
+}
+
+.backgroundcontent {
+  position: absolute;
+  bottom: 5%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+}
+
+.backgroundcontent h2 {
+  text-align: center;
+}
+.socials {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.socials span i {
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.socials span {
+  transition: transform 0.2s linear 0s;
+}
+.socials span:hover {
+  transform: scale(1.1);
+}
+
+.headers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.names {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 40px;
+  width: 80%;
+}
+
+.names input {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  width: 48% !important;
+}
+
+@media only screen and (max-width: 750px) {
+  .names input {
+    width: 100% !important;
+  }
+}
+
+.secondcolumn input {
+  width: 79%;
+  height: 50px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.secondcolumn button {
+  margin-top: 20px;
+  width: 200px;
+  height: 40px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  transition: transform 0.2s linear 0s;
+}
+
+.secondcolumn button:hover {
+  transform: scale(1.05);
+  background-color: white;
+  color: black;
+}
+
+.textarea {
+  height: 100px !important;
+  width: 79%;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.secondcolumn input::placeholder,
+.textarea::placeholder {
+  text-indent: 10px; /* adjust the position as desired */
+}

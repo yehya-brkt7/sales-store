@@ -1,5 +1,3 @@
-"use client";
-
 import Dropdown from "react-bootstrap/Dropdown";
 import styles from "../filters.module.css";
 import { useStore } from "../../../../zustand/store";
