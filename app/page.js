@@ -7,6 +7,7 @@ import NavBar from "./components/navbar/navbar";
 import Trending from "./components/products/trendingproducts";
 import Filters from "./components/products/filters/filters";
 import ControlledCarousel from "./components/products/filters/categoryslider";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default async function Home() {
   const products = await getAllProducts();
