@@ -201,6 +201,8 @@
   display: flex;
   justify-content: center;
   margin-bottom: 100px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .ul li {
   list-style: none;

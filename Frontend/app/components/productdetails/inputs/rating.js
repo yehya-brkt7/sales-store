@@ -28,6 +28,7 @@ export default function BasicRating({ productdetail }) {
         alignItems: "center",
       }}
     >
+      <button onClick={() => submitRating()}>send review</button>
       <Rating
         name="simple-controlled"
         value={rating}
@@ -35,9 +36,8 @@ export default function BasicRating({ productdetail }) {
           setRating(newValue);
         }}
       />
-      <button onClick={() => submitRating()}>send review</button>
 
-      <Typography style={{ marginTop: "80px" }}>
+      <Typography style={{ marginTop: "55px" }}>
         Rating <br></br> {productdetail.average_rating}{" "}
         <i class="bi bi-star"></i>
       </Typography>

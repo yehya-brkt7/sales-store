@@ -61,6 +61,10 @@
 
   column-gap: 70px;
   margin-top: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 20px;
+  background-color: #ddd;
 }
 
 .firstinfocolumn {
@@ -74,7 +78,7 @@
   display: flex;
   /* align-items: center; */
   justify-content: center;
-  margin-top: -3px;
+  margin-top: 20px;
 }
 .rating {
   background-color: red;

@@ -79,7 +79,7 @@ function Products({ products }) {
             .sort((a, b) => b.price - a.price)
             .map((p, index) => {
               return (
-                p.name?.toLowerCase().includes(filter) && (
+                p.name?.toLowerCase().includes(filter.toLowerCase()) && (
                   <div
                     data-aos="zoom-in-up"
                     key={index}
