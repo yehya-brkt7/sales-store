@@ -4,12 +4,14 @@ import { getAllProducts } from "../lib/woocommerce";
 import { getProductVariations } from "../lib/woocommerce";
 
 export const useStore = create((set) => ({
-  productdetails: [],
+  // handling data
+  storeproducts: [],
 
-  getProductById: (id) => {
-    const product = get().productDetails.find((p) => p.id === id);
-    return product;
-  },
+  setstoreproducts: (value) => set(() => ({ storeproducts: value })),
+
+  cartproducts: [],
+  setcartproducts: (value) =>
+    set((state) => ({ cartproducts: [...state.cartproducts, value] })),
 
   productname: "",
   setproductname: (value) => set(() => ({ productname: value })),
@@ -22,6 +24,8 @@ export const useStore = create((set) => ({
     const productvars = await getProductVariations(productid);
     set({ productvariations: productvars });
   },
+
+  //handling filters
 
   selectedcolor: "all",
 
@@ -42,6 +46,9 @@ export const useStore = create((set) => ({
 
   pricerange: [0, 1000],
   setPriceRange: (range) => set({ pricerange: range }),
+
+  relatedproducttype: "",
+  setrelatedproducttype: (value) => set(() => ({ relatedproducttype: value })),
 
   colors: [
     { id: 1, value: "blue" },
@@ -82,4 +89,21 @@ export const useStore = create((set) => ({
     { id: 4, value: "armani" },
     { id: 5, value: "all" },
   ],
+
+  // handling account info
+
+  user: {
+    first_name: "",
+  },
+
+  setuser: (value) => set(() => ({ user: value })),
+
+  accountfirstname: "",
+  setaccountfirstname: (value) => set(() => ({ accountfirstname: value })),
+
+  accountlastname: "",
+  setaccountlastname: (value) => set(() => ({ accountlastname: value })),
+
+  accountemail: "",
+  setaccountemail: (value) => set(() => ({ accountemail: value })),
 }));

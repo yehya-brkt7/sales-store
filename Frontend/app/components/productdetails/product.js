@@ -8,12 +8,17 @@ import BasicRating from "./inputs/rating";
 import { useStore } from "../../zustand/store";
 import Sizedropdown from "./inputs/sizedropdown";
 import { useState, useEffect } from "react";
+import RelatedProducts from "./relatedproducts/relatedproducts";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Productdetail = ({ productdetail }) => {
-  const { productvariations, fetchvariations } = useStore((state) => state);
+  const { productvariations, fetchvariations, cartproducts, setcartproducts } =
+    useStore((state) => state);
 
   useEffect(() => {
     fetchvariations(productdetail.id);
+    console.log("product", productdetail);
   }, []);
 
   const [price, setPrice] = useState("");
@@ -47,7 +52,9 @@ const Productdetail = ({ productdetail }) => {
             <div className={styles.price}>
               <del>{price}$</del>
               <span>{productdetail.price}$</span>
-              <div>-{100 - (productdetail.price * 100) / price}%</div>
+              <div>
+                -{Math.floor(100 - (productdetail.price * 100) / price)}%
+              </div>
             </div>
             <button>
               <i class="bi bi-cart3"></i>add to cart
@@ -58,6 +65,8 @@ const Productdetail = ({ productdetail }) => {
           </div>
         </section>
       </section>
+      <ToastContainer />
+      {/* <RelatedProducts id={productdetail.id} /> */}
     </main>
   );
 };

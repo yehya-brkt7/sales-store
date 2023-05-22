@@ -7,10 +7,10 @@ import Socials from "./socials/socials";
 const About = () => {
   return (
     <main className={styles.main}>
-      <Videoplayer />
       <Info />
       <Achievements />
       <Socials />
+      <Videoplayer />
 
       {/* <section className={styles.creators}>
         <h1>Creators</h1>

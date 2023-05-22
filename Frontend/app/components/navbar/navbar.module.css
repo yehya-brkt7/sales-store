@@ -79,6 +79,7 @@
   height: 50px !important;
   width: 50px !important;
   transition: transform 0.2s linear 0s;
+  margin-left: 30px;
 }
 
 .checkoutButton {

@@ -1,5 +1,8 @@
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const wooCommerce = new WooCommerceRestApi({
   url: process.env.NEXT_PUBLIC_WC_STORE_URL,
   consumerKey: process.env.NEXT_PUBLIC_WC_CONSUMER_KEY,
@@ -64,7 +67,57 @@ async function getProductVariations(productId) {
   }
 }
 
-async function submitRating(productId, data) {}
+async function submitRating(data) {
+  wooCommerce
+    .post("products/reviews", data)
+    .then((response) => {
+      toast("Rating Submitted");
+      console.log(response.data);
+    })
+    .catch((error) => {
+      toast(error.message);
+      console.log(error);
+    });
+}
+
+async function createCustomer(data, setfunction) {
+  wooCommerce
+    .post("customers", data)
+    .then((response) => {
+      setfunction(response.data);
+      toast("Account successfully created!");
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+      toast(error.response.data.message);
+    });
+}
+
+async function getCustomer(email, setfunction) {
+  wooCommerce
+    .get("customers?email=" + email)
+    .then((response) => {
+      setfunction(response.data[0]);
+      toast("user logged in successfully");
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      toast(error.message);
+    });
+}
+
+async function getAllCustomers() {
+  wooCommerce
+    .get("customers")
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+}
 
 export {
   wooCommerce,
@@ -72,4 +125,7 @@ export {
   getProductById,
   getProductVariations,
   submitRating,
+  createCustomer,
+  getCustomer,
+  getAllCustomers,
 };

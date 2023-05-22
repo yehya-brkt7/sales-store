@@ -19,12 +19,15 @@ function Products({ products }) {
     selectedsize,
     selectedcategory,
     pricerange,
+    setrelatedproducttype,
+    setstoreproducts,
   } = useStore((state) => state);
 
   const router = useRouter();
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
+    setstoreproducts(products);
   }, []);
 
   const [productIndex, setIProductIndex] = useState(null);
@@ -33,7 +36,8 @@ function Products({ products }) {
     setIProductIndex(id);
   };
 
-  const handleClick = (id) => {
+  const handleClick = (id, type) => {
+    setrelatedproducttype(type);
     router.push(`/products/${id}`);
   };
 
@@ -188,7 +192,7 @@ function Products({ products }) {
                               <a
                                 onClick={(e) => {
                                   e.preventDefault(); // Prevent the default link navigation
-                                  handleClick(p.id);
+                                  handleClick(p.id, p.categories[0].name);
                                 }}
                                 className={styles.cart}
                                 href="#"

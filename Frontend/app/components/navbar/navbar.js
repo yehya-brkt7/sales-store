@@ -48,6 +48,15 @@ const NavBar = () => {
                 Contact
               </Link>
             </Nav.Link>
+            <Nav.Link
+              style={{ marginRight: "20px" }}
+              href="#action1"
+              className={styles.navlink}
+            >
+              <Link className={styles.link} href="/profile">
+                Profile
+              </Link>
+            </Nav.Link>
           </Nav>
           {/* <Form
             onSubmit={handleSearch}
@@ -67,12 +76,20 @@ const NavBar = () => {
             </Button>{" "}
           </Form> */}
 
+          <Nav.Link href="#action1" className={styles.navlink}>
+            <Link className={styles.link} href="/signup">
+              Create-Account
+            </Link>
+          </Nav.Link>
           <Nav.Link
             href="#action1"
             className={`${styles.checkoutIcon} ${styles.navlink}`}
           >
-            <i class="bi bi-cart3"></i>
+            <Link href="/cart">
+              <i class="bi bi-cart3"></i>
+            </Link>
           </Nav.Link>
+
           <Nav.Link href="#action1" className={styles.checkoutButton}>
             <Button variant="outline-success">Checkout</Button>
           </Nav.Link>

@@ -11,7 +11,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Trending = ({ products }) => {
-  const { productcolor, setproductcolor } = useStore((state) => state);
+  const { productcolor, setproductcolor, setrelatedproducttype } = useStore(
+    (state) => state
+  );
 
   const router = useRouter();
 
@@ -25,7 +27,8 @@ const Trending = ({ products }) => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const handleClick = (id) => {
+  const handleClick = (id, type) => {
+    setrelatedproducttype(type);
     router.push(`/products/${id}`);
   };
   return (
@@ -145,7 +148,9 @@ const Trending = ({ products }) => {
                           </div>
 
                           <a
-                            onClick={() => handleClick(p.id)}
+                            onClick={() =>
+                              handleClick(p.id, p.categories[0].name)
+                            }
                             className={styles.cart}
                             href="#"
                           >
