@@ -1,7 +1,5 @@
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
-
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const wooCommerce = new WooCommerceRestApi({
   url: process.env.NEXT_PUBLIC_WC_STORE_URL,
@@ -68,15 +66,34 @@ async function getProductVariations(productId) {
 }
 
 async function submitRating(data) {
+  try {
+    const response = await wooCommerce.post("products/reviews", data);
+
+    return response; // Return the response
+  } catch (error) {
+    throw error; // Throw the error to be caught by the caller
+  }
+}
+
+async function getRating(productId) {
   wooCommerce
-    .post("products/reviews", data)
+    .get("products/reviews?product_id=" + productId)
     .then((response) => {
-      toast("Rating Submitted");
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+}
+
+async function updateRating(ratingid, data) {
+  wooCommerce
+    .put("products/reviews/" + ratingid, data)
+    .then((response) => {
       console.log(response.data);
     })
     .catch((error) => {
-      toast(error.message);
-      console.log(error);
+      console.log(error.response.data);
     });
 }
 
@@ -85,12 +102,10 @@ async function createCustomer(data, setfunction) {
     .post("customers", data)
     .then((response) => {
       setfunction(response.data);
-      toast("Account successfully created!");
-      console.log(response.data);
+      toast("user created");
     })
     .catch((error) => {
-      console.log(error.response.data);
-      toast(error.response.data.message);
+      toast("user already exists");
     });
 }
 
@@ -99,24 +114,18 @@ async function getCustomer(email, setfunction) {
     .get("customers?email=" + email)
     .then((response) => {
       setfunction(response.data[0]);
-      toast("user logged in successfully");
-      console.log(response.data);
+      toast("user is logged in");
     })
     .catch((error) => {
-      console.log(error.message);
-      toast(error.message);
+      toast("not logged in");
     });
 }
 
 async function getAllCustomers() {
   wooCommerce
     .get("customers")
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+    .then((response) => {})
+    .catch((error) => {});
 }
 
 export {
@@ -124,7 +133,9 @@ export {
   getAllProducts,
   getProductById,
   getProductVariations,
+  getRating,
   submitRating,
+  updateRating,
   createCustomer,
   getCustomer,
   getAllCustomers,

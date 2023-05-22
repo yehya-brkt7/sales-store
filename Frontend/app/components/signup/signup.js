@@ -3,7 +3,7 @@
 import styles from "./signup.module.css";
 import { useStore } from "../../zustand/store";
 import { createCustomer } from "@/app/lib/woocommerce";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import Signin from "./signin";
@@ -25,8 +25,9 @@ const Signup = () => {
     last_name: accountlastname,
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     createCustomer(data, setuser);
+    sessionStorage.setItem("accountemail", accountemail);
   };
 
   const [iscustomer, setIscustomer] = useState(false);
@@ -63,7 +64,9 @@ const Signup = () => {
           <button onClick={() => handleSubmit()} type="submit">
             Sign Up
           </button>
-          or sign in if you already have an account
+          <span style={{ textAlign: "center" }}>
+            or sign in if you already have an account
+          </span>
           <button onClick={() => setIscustomer(true)}> Sign in</button>
           <ToastContainer />
         </div>

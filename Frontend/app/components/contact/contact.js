@@ -3,11 +3,23 @@
 import styles from "./contact.module.css";
 import Image from "next/image";
 import bg from "../../../public/contact.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useStore } from "../../zustand/store";
+import { getCustomer } from "@/app/lib/woocommerce";
 
 const Contact = () => {
+  const { user, accountemail, setuser } = useStore((state) => state);
+
+  useEffect(() => {
+    if (accountemail === "") {
+      const storedEmail = sessionStorage.getItem("accountemail");
+
+      getCustomer(storedEmail, setuser);
+    }
+  }, []);
+
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [phone, setPhone] = useState("");
@@ -106,7 +118,7 @@ const Contact = () => {
               type="text"
               placeholder="First Name"
               name="firstName"
-              value={fname}
+              value={user.first_name === "" ? fname : user.first_name}
               onChange={handleFirstNameChange}
               required
             />
@@ -114,7 +126,7 @@ const Contact = () => {
               type="text"
               placeholder="Last Name"
               name="lastName"
-              value={lname}
+              value={user.last_name === "" ? lname : user.last_name}
               onChange={handleLastNameChange}
               required
             />
@@ -123,7 +135,7 @@ const Contact = () => {
             type="email"
             placeholder="Email"
             name="email"
-            value={email}
+            value={user.email === "" ? email : user.email}
             onChange={handleEmailChange}
             required
           />

@@ -5,7 +5,14 @@ import Typography from "@mui/material/Typography";
 import { useStore } from "../../../zustand/store";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { submitRating, getCustomer } from "../../../lib/woocommerce";
+import {
+  submitRating,
+  getCustomer,
+  updateRating,
+  getRating,
+} from "../../../lib/woocommerce";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function BasicRating({ productdetail }) {
   const { user, setuser, accountemail } = useStore((state) => state);
@@ -19,16 +26,23 @@ export default function BasicRating({ productdetail }) {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("user", user);
-  }, []);
-
   const data = {
     product_id: productdetail.id,
     review: "review",
     reviewer: user.first_name,
     reviewer_email: user.email,
     rating: rating,
+  };
+
+  const handleRating = async () => {
+    try {
+      const response = await submitRating(data);
+      if (response && response.status === 201) {
+        toast("Rating Submitted");
+      }
+    } catch {
+      toast("you already submitted a rating");
+    }
   };
 
   return (
@@ -41,7 +55,7 @@ export default function BasicRating({ productdetail }) {
         alignItems: "center",
       }}
     >
-      <button onClick={() => submitRating(data)}>send review</button>
+      <button onClick={() => handleRating()}>send review</button>
       <Rating
         name="simple-controlled"
         value={rating}
