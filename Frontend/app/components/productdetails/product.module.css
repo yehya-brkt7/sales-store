@@ -59,12 +59,13 @@
   /* align-items: center; */
   justify-content: space-around;
 
-  column-gap: 70px;
+  column-gap: 45px;
   margin-top: 30px;
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 20px;
   background-color: #ddd;
+  /* width: 350px; */
 }
 
 .firstinfocolumn {
@@ -72,6 +73,7 @@
   flex-direction: column;
   justify-content: space-around;
   row-gap: 10px;
+  /* width: 90%; */
 }
 
 .reviews {
