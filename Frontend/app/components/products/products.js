@@ -17,6 +17,7 @@ function Products({ products }) {
     selectedcolor,
     selectedtype,
     selectedsize,
+    setSelectedsize,
     selectedcategory,
     pricerange,
     setrelatedproducttype,
@@ -28,6 +29,7 @@ function Products({ products }) {
   useEffect(() => {
     AOS.init({ duration: 1000 });
     setstoreproducts(products);
+    setSelectedsize("all");
   }, []);
 
   const [productIndex, setIProductIndex] = useState(null);

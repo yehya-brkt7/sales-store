@@ -25,6 +25,7 @@ const Productdetail = ({ productdetail }) => {
     cartproduct,
     productcolor,
     selectedsize,
+    setSelectedsize,
   } = useStore((state) => state);
 
   useEffect(() => {
@@ -40,6 +41,8 @@ const Productdetail = ({ productdetail }) => {
       fetchData();
     }
     toast("make sure you're logged in to shop!");
+
+    setSelectedsize("select size");
   }, []);
 
   useEffect(() => {
@@ -92,6 +95,15 @@ const Productdetail = ({ productdetail }) => {
 
   const { addItem } = useCart();
 
+  const handleCart = () => {
+    selectedsize === "select size"
+      ? toast.warning("Please select a size")
+      : (addItem(cartproduct),
+        toast(
+          `${cartproduct.name} added to cart with size: ${selectedsize} and color: ${productcolor}`
+        ));
+  };
+
   return (
     <CartProvider>
       <main className={styles.main}>
@@ -123,7 +135,7 @@ const Productdetail = ({ productdetail }) => {
               <button
                 disabled={user.email === "" ? true : false}
                 className={user.email == "" ? styles.disabledbutton : ""}
-                onClick={() => addItem(cartproduct)}
+                onClick={() => handleCart()}
               >
                 <i class="bi bi-cart3"></i>add to cart
               </button>
