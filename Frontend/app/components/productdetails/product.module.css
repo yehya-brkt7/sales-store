@@ -134,3 +134,8 @@
 .sizedropdown span {
   font-size: 20px;
 }
+
+.disabledbutton {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

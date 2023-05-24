@@ -1,9 +1,12 @@
+"use client";
+
 import NavBar from "./components/navbar/navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Analytics } from "@vercel/analytics/react";
+import { CartProvider } from "react-use-cart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +17,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="app">
-        <NavBar />
-        {children}
-        <Analytics />
-      </body>
-    </html>
+    <CartProvider>
+      <html lang="en">
+        <body className="app">
+          <NavBar />
+          {children}
+          <Analytics />
+        </body>
+      </html>
+    </CartProvider>
   );
 }

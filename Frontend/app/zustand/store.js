@@ -9,9 +9,14 @@ export const useStore = create((set) => ({
 
   setstoreproducts: (value) => set(() => ({ storeproducts: value })),
 
-  cartproducts: [],
-  setcartproducts: (value) =>
-    set((state) => ({ cartproducts: [...state.cartproducts, value] })),
+  cartproduct: {
+    name: "",
+    price: "",
+    id: "",
+  },
+  setcartproduct: (product) => {
+    set({ cartproduct: product });
+  },
 
   productname: "",
   setproductname: (value) => set(() => ({ productname: value })),
@@ -94,6 +99,7 @@ export const useStore = create((set) => ({
 
   user: {
     first_name: "",
+    email: "",
   },
 
   setuser: (value) => set(() => ({ user: value })),
