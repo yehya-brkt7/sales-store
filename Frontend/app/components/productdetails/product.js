@@ -82,7 +82,7 @@ const Productdetail = ({ productdetail }) => {
       size: selectedsize,
       image: imageSrc,
     });
-  }, [productcolor]);
+  }, [productcolor, selectedsize]);
 
   const [price, setPrice] = useState("");
 
