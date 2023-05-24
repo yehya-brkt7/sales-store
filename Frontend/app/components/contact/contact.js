@@ -32,9 +32,7 @@ const Contact = () => {
 
       fetchData();
     }
-    user.email != ""
-      ? toast.success("user is logged in, you can send a message")
-      : toast.warning("login to send a message");
+    toast("make sure you're logged in the send a message");
   }, []);
 
   const [fname, setFname] = useState("");
