@@ -1,5 +1,3 @@
-"use client";
-
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -9,7 +7,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../../public/logo.png";
 import Image from "next/image";
 import styles from "./navbar.module.css";
-import { useState } from "react";
 import Link from "next/link";
 
 const NavBar = () => {
