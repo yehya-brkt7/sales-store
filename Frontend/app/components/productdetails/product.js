@@ -39,6 +39,7 @@ const Productdetail = ({ productdetail }) => {
 
       fetchData();
     }
+    toast("make sure you're logged in to shop!");
   }, []);
 
   useEffect(() => {
