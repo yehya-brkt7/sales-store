@@ -5,26 +5,40 @@ import { useStore } from "../../../zustand/store";
 
 const Gallery = ({ productdetail }) => {
   const { productcolor, setproductcolor } = useStore((state) => state);
+  const [selectedView, setSelectedView] = useState("side");
+  const [selectedImage, setSelectedImage] = useState("");
+
+  useEffect(() => {
+    setSelectedImage(
+      getProductImageByColorAndOption(productcolor, selectedView)
+    );
+  }, [productcolor, selectedView]);
+
+  useEffect(() => {
+    setproductcolor("blue");
+  }, []);
 
   const handleColor = (color) => {
     setproductcolor(color);
   };
 
-  function getProductImageByAlt(images, altText) {
-    const image = images.find((image) => image.alt === altText);
-    return image
-      ? image.src
-      : productdetail.images.find((image) => image.alt === "bluesideview").src;
-  }
+  const handleView = (view) => {
+    setSelectedView(view);
+  };
 
-  const [photo, setPhoto] = useState(
-    productdetail.images.find((image) => image.alt === "bluesideview").src
-  );
+  const getProductImageByColorAndOption = (color, option) => {
+    const filteredImages = productdetail.images.filter((image) => {
+      const altText = image.alt.toLowerCase();
+      return altText.includes(color) && altText.includes(option);
+    });
+
+    return filteredImages.length > 0 ? filteredImages[0].src : "";
+  };
 
   return (
     <section className={styles.gallery}>
       <div className={styles.imagecontainer}>
-        <img className={styles.image} src={photo} />
+        <img className={styles.image} src={selectedImage} />
       </div>
       <div className={styles.colorslist}>
         {productdetail.attributes[1].options
@@ -51,65 +65,20 @@ const Gallery = ({ productdetail }) => {
         <img
           className={styles.thumbnailimage}
           tabIndex="-1"
-          onClick={() => {
-            const selectedImageSrc =
-              productcolor === "blue"
-                ? getProductImageByAlt(productdetail.images, "bluesideview")
-                : productcolor === "red"
-                ? getProductImageByAlt(productdetail.images, "redsideview")
-                : getProductImageByAlt(productdetail.images, "greensideview");
-
-            setPhoto(selectedImageSrc);
-          }}
-          src={
-            productcolor === "blue"
-              ? getProductImageByAlt(productdetail.images, "bluesideview")
-              : productcolor === "red"
-              ? getProductImageByAlt(productdetail.images, "redsideview")
-              : getProductImageByAlt(productdetail.images, "greensideview")
-          }
+          onClick={() => handleView("side")}
+          src={getProductImageByColorAndOption(productcolor, "side")}
         />
         <img
           className={styles.thumbnailimage}
           tabIndex="-1"
-          onClick={() => {
-            const selectedImageSrc =
-              productcolor === "blue"
-                ? getProductImageByAlt(productdetail.images, "bluetopview")
-                : productcolor === "red"
-                ? getProductImageByAlt(productdetail.images, "redtopview")
-                : getProductImageByAlt(productdetail.images, "greentopview");
-
-            setPhoto(selectedImageSrc);
-          }}
-          src={
-            productcolor === "blue"
-              ? getProductImageByAlt(productdetail.images, "bluetopview")
-              : productcolor === "red"
-              ? getProductImageByAlt(productdetail.images, "redtopview")
-              : getProductImageByAlt(productdetail.images, "greentopview")
-          }
+          onClick={() => handleView("top")}
+          src={getProductImageByColorAndOption(productcolor, "top")}
         />
         <img
           className={styles.thumbnailimage}
           tabIndex="-1"
-          onClick={() => {
-            const selectedImageSrc =
-              productcolor === "blue"
-                ? getProductImageByAlt(productdetail.images, "bluebackview")
-                : productcolor === "red"
-                ? getProductImageByAlt(productdetail.images, "redbackview")
-                : getProductImageByAlt(productdetail.images, "greenbackview");
-
-            setPhoto(selectedImageSrc);
-          }}
-          src={
-            productcolor === "blue"
-              ? getProductImageByAlt(productdetail.images, "bluebackview")
-              : productcolor === "red"
-              ? getProductImageByAlt(productdetail.images, "redbackview")
-              : getProductImageByAlt(productdetail.images, "greenbackview")
-          }
+          onClick={() => handleView("back")}
+          src={getProductImageByColorAndOption(productcolor, "back")}
         />
       </div>
     </section>

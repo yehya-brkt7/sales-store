@@ -3,15 +3,21 @@
 import styles from "./signup.module.css";
 import { useStore } from "../../zustand/store";
 import { getCustomer } from "@/app/lib/woocommerce";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
 const Signin = () => {
   const { accountemail, setaccountemail, setuser } = useStore((state) => state);
 
-  const handleSubmit = () => {
-    getCustomer(accountemail, setuser);
+  const handleSubmit = async () => {
+    try {
+      await getCustomer(accountemail, setuser);
+
+      toast.success("Login successfull");
+    } catch (error) {
+      toast.error("Email doesn't exist");
+    }
     sessionStorage.setItem("accountemail", accountemail);
   };
 

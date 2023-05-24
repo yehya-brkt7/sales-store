@@ -12,12 +12,29 @@ import { getCustomer } from "@/app/lib/woocommerce";
 const Contact = () => {
   const { user, accountemail, setuser } = useStore((state) => state);
 
+  // useEffect(() => {
+  //   if (accountemail === "") {
+  //     const storedEmail = sessionStorage.getItem("accountemail");
+
+  //     getCustomer(storedEmail, setuser);
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (accountemail === "") {
       const storedEmail = sessionStorage.getItem("accountemail");
 
-      getCustomer(storedEmail, setuser);
+      const fetchData = async () => {
+        try {
+          await getCustomer(storedEmail, setuser);
+        } catch (error) {}
+      };
+
+      fetchData();
     }
+    user.email != ""
+      ? toast.success("user is logged in, you can send a message")
+      : toast.warning("login to send a message");
   }, []);
 
   const [fname, setFname] = useState("");

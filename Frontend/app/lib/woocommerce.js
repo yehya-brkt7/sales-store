@@ -114,11 +114,8 @@ async function getCustomer(email, setfunction) {
     .get("customers?email=" + email)
     .then((response) => {
       setfunction(response.data[0]);
-      toast("user is logged in");
     })
-    .catch((error) => {
-      toast("not logged in");
-    });
+    .catch((error) => {});
 }
 
 async function getAllCustomers() {

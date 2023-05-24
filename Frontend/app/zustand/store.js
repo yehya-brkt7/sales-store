@@ -43,7 +43,7 @@ export const useStore = create((set) => ({
   selectedtype: "all",
   setSelectedtype: (value) => set(() => ({ selectedtype: value })),
 
-  productcolor: "all",
+  productcolor: "red",
   setproductcolor: (value) => set(() => ({ productcolor: value })),
 
   selectedcategory: "",

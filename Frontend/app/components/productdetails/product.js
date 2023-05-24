@@ -9,7 +9,7 @@ import { useStore } from "../../zustand/store";
 import Sizedropdown from "./inputs/sizedropdown";
 import { useState, useEffect } from "react";
 import RelatedProducts from "./relatedproducts/relatedproducts";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CartProvider, useCart } from "react-use-cart";
 import { getCustomer } from "@/app/lib/woocommerce";
@@ -28,13 +28,21 @@ const Productdetail = ({ productdetail }) => {
   } = useStore((state) => state);
 
   useEffect(() => {
-    fetchvariations(productdetail.id);
-
     if (accountemail === "") {
       const storedEmail = sessionStorage.getItem("accountemail");
 
-      getCustomer(storedEmail, setuser);
+      const fetchData = async () => {
+        try {
+          await getCustomer(storedEmail, setuser);
+        } catch (error) {}
+      };
+
+      fetchData();
     }
+  }, []);
+
+  useEffect(() => {
+    fetchvariations(productdetail.id);
 
     let imageSrc = "";
 
@@ -129,7 +137,7 @@ const Productdetail = ({ productdetail }) => {
             </div>
           </section>
         </section>
-        {/* <ToastContainer /> */}
+        <ToastContainer />
         {/* <RelatedProducts id={productdetail.id} /> */}
       </main>
     </CartProvider>
