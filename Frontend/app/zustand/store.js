@@ -5,6 +5,10 @@ import { getProductVariations } from "../lib/woocommerce";
 
 export const useStore = create((set) => ({
   // handling data
+
+  productsarray: [],
+  setproductsarray: (value) => set(() => ({ productsarray: value })),
+
   storeproducts: [],
 
   setstoreproducts: (value) => set(() => ({ storeproducts: value })),

@@ -151,7 +151,7 @@ const Productdetail = ({ productdetail }) => {
           </section>
         </section>
         <ToastContainer />
-        {/* <RelatedProducts id={productdetail.id} /> */}
+        <RelatedProducts id={productdetail.id} />
       </main>
     </CartProvider>
   );
