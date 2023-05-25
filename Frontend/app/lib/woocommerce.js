@@ -17,7 +17,7 @@ const wooCommercetest = new WooCommerceRestApi({
 
 async function getAllProducts() {
   try {
-    const { data } = await wooCommerce.get("products?_expand=variations");
+    const { data } = await wooCommerce.get("products");
 
     return data;
   } catch (error) {
@@ -27,7 +27,7 @@ async function getAllProducts() {
 
 async function getProductById(id) {
   try {
-    const { data } = await wooCommerce.get(`products/${id}?_expand=variations`);
+    const { data } = await wooCommerce.get(`products/${id}`);
     return data;
   } catch (error) {
     console.log(error);

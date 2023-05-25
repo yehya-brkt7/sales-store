@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      {/* <Trending products={products} /> */}
+      <Trending products={products} />
       <ControlledCarousel />
       <Filters />
       <Products products={products} />

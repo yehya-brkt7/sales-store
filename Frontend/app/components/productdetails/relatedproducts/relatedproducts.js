@@ -15,7 +15,6 @@ async function RelatedProducts({ id }) {
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
-    console.log("storeproducts", storeproducts, "related", relatedproducttype);
   }, []);
 
   const [productIndex, setIProductIndex] = useState(null);

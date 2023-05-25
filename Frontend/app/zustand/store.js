@@ -9,6 +9,9 @@ export const useStore = create((set) => ({
   productsarray: [],
   setproductsarray: (value) => set(() => ({ productsarray: value })),
 
+  productdetail: [],
+  setproductdetail: (value) => set(() => ({ productdetail: value })),
+
   storeproducts: [],
 
   setstoreproducts: (value) => set(() => ({ storeproducts: value })),

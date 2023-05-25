@@ -82,18 +82,14 @@ const Contact = () => {
 
       toast("Message Sent!");
       if (response.ok) {
-        console.log("success");
         setFname("");
         setLname("");
         setPhone("");
         setEmail("");
         setMessage("");
       } else {
-        console.log("Failed to send email");
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

@@ -23,7 +23,7 @@ function Products({ products }) {
     pricerange,
     setrelatedproducttype,
     setstoreproducts,
-    setproductname,
+    setproductdetail,
   } = useStore((state) => state);
 
   const router = useRouter();
@@ -90,6 +90,11 @@ function Products({ products }) {
               return (
                 p.name?.toLowerCase().includes(filter.toLowerCase()) && (
                   <div
+                    onMouseEnter={() =>
+                      setproductdetail(
+                        products.find((product) => product.id == p.id)
+                      )
+                    }
                     data-aos="zoom-in-up"
                     key={index}
                     product={p}
