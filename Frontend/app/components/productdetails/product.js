@@ -52,21 +52,21 @@ const Productdetail = ({ productdetail }) => {
 
     if (productcolor === "blue") {
       const blueImage = productdetail.images.find(
-        (image) => image.alt === "bluesideview"
+        (image) => image.alt === "blue-side"
       );
       if (blueImage && blueImage.src) {
         imageSrc = blueImage.src;
       }
     } else if (productcolor === "red") {
       const redImage = productdetail.images.find(
-        (image) => image.alt === "redsideview"
+        (image) => image.alt === "red-side"
       );
       if (redImage && redImage.src) {
         imageSrc = redImage.src;
       }
     } else {
       const greenImage = productdetail.images.find(
-        (image) => image.alt === "greensideview"
+        (image) => image.alt === "green-side"
       );
       if (greenImage && greenImage.src) {
         imageSrc = greenImage.src;
