@@ -38,9 +38,11 @@ function Products({ products }) {
     setIProductIndex(id);
   };
 
-  const handleClick = (id, type) => {
+  const [productId, setproductId] = useState();
+
+  const handleClick = (type) => {
     setrelatedproducttype(type);
-    router.push(`/products/${id}`);
+    router.push(`/products/${productId}`);
   };
 
   const filteredProducts = products.filter(
@@ -87,6 +89,9 @@ function Products({ products }) {
               return (
                 p.name?.toLowerCase().includes(filter.toLowerCase()) && (
                   <div
+                    onMouseEnter={() => {
+                      setproductId(p.id);
+                    }}
                     data-aos="zoom-in-up"
                     key={index}
                     product={p}

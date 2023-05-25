@@ -27,10 +27,13 @@ const Trending = ({ products }) => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const handleClick = (id, type) => {
+  const [productId, setproductId] = useState();
+
+  const handleClick = (type) => {
     setrelatedproducttype(type);
-    router.push(`/products/${id}`);
+    router.push(`/products/${productId}`);
   };
+
   return (
     <main className={styles.main}>
       <h1>Trending</h1>
@@ -43,6 +46,9 @@ const Trending = ({ products }) => {
           .map((p, index) => {
             return (
               <div
+                onMouseEnter={() => {
+                  setproductId(p.id);
+                }}
                 data-aos="zoom-in-up"
                 key={index}
                 product={p}
