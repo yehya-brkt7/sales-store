@@ -10,15 +10,15 @@ import { useStore } from "../../zustand/store";
 import { getCustomer } from "@/app/lib/woocommerce";
 
 const Contact = () => {
-  const { user, accountemail, setuser } = useStore((state) => state);
+  const { user, accountemail, setuser, accountfirstname, accountlastname } =
+    useStore((state) => state);
 
-  // useEffect(() => {
-  //   if (accountemail === "") {
-  //     const storedEmail = sessionStorage.getItem("accountemail");
-
-  //     getCustomer(storedEmail, setuser);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (user) {
+      setFname(user.first_name || "");
+      setLname(user.last_name || "");
+    }
+  }, [user]);
 
   useEffect(() => {
     if (accountemail === "") {
@@ -129,7 +129,7 @@ const Contact = () => {
               type="text"
               placeholder="First Name"
               name="firstName"
-              value={user.first_name === "" ? fname : user.first_name}
+              value={fname}
               onChange={handleFirstNameChange}
               required
             />
@@ -137,7 +137,7 @@ const Contact = () => {
               type="text"
               placeholder="Last Name"
               name="lastName"
-              value={user.last_name === "" ? lname : user.last_name}
+              value={lname}
               onChange={handleLastNameChange}
               required
             />
@@ -169,7 +169,7 @@ const Contact = () => {
             required
           />
           <button type="submit">send</button>
-          <ToastContainer />
+          <ToastContainer position="bottom-right" />
         </form>
       </section>
     </main>

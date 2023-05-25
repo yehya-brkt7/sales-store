@@ -98,24 +98,23 @@ async function updateRating(ratingid, data) {
 }
 
 async function createCustomer(data, setfunction) {
-  wooCommerce
-    .post("customers", data)
-    .then((response) => {
-      setfunction(response.data);
-      toast("user created");
-    })
-    .catch((error) => {
-      toast("user already exists");
-    });
+  try {
+    const response = await wooCommerce.post("customers", data);
+    setfunction(response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
-async function getCustomer(email, setfunction) {
-  wooCommerce
-    .get("customers?email=" + email)
-    .then((response) => {
-      setfunction(response.data[0]);
-    })
-    .catch((error) => {});
+async function getCustomer(email, setFunction) {
+  try {
+    const response = await wooCommerce.get("customers?email=" + email);
+    setFunction(response.data[0]);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getAllCustomers() {
@@ -123,6 +122,28 @@ async function getAllCustomers() {
     .get("customers")
     .then((response) => {})
     .catch((error) => {});
+}
+
+async function updateCustomer(id, data) {
+  wooCommerce
+    .put(`customers/${id}`, data)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+}
+
+async function createOrder(data) {
+  wooCommerce
+    .post("orders", data)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
 }
 
 export {
@@ -136,4 +157,6 @@ export {
   createCustomer,
   getCustomer,
   getAllCustomers,
+  updateCustomer,
+  createOrder,
 };

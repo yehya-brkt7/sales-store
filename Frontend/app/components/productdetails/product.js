@@ -150,7 +150,7 @@ const Productdetail = ({ productdetail }) => {
             </div>
           </section>
         </section>
-        <ToastContainer />
+        <ToastContainer position="bottom-right" />
         {/* <RelatedProducts id={productdetail.id} /> */}
       </main>
     </CartProvider>

@@ -12,7 +12,6 @@ import Form from "react-bootstrap/Form";
 
 function Products({ products }) {
   const {
-    setproductsarray,
     productcolor,
     setproductcolor,
     selectedcolor,
@@ -23,13 +22,11 @@ function Products({ products }) {
     pricerange,
     setrelatedproducttype,
     setstoreproducts,
-    setproductdetail,
   } = useStore((state) => state);
 
   const router = useRouter();
 
   useEffect(() => {
-    setproductsarray(products);
     AOS.init({ duration: 1000 });
     setstoreproducts(products);
     setSelectedsize("all");
@@ -90,11 +87,6 @@ function Products({ products }) {
               return (
                 p.name?.toLowerCase().includes(filter.toLowerCase()) && (
                   <div
-                    onMouseEnter={() =>
-                      setproductdetail(
-                        products.find((product) => product.id == p.id)
-                      )
-                    }
                     data-aos="zoom-in-up"
                     key={index}
                     product={p}

@@ -123,7 +123,7 @@ const Cart = () => {
             <div className="row mt-4 d-flex align-items-center ">
               <div className="col-sm-6 order-md-2 text-right">
                 <Link
-                  href="/checkout"
+                  href="/shipping"
                   className="btn btn-primary mb-4 btn-lg pl-5 pr-5"
                 >
                   Checkout

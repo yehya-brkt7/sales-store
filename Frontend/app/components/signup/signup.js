@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import Signin from "./signin";
+import Link from "next/link";
 
 const Signup = () => {
   const {
@@ -25,9 +26,23 @@ const Signup = () => {
     last_name: accountlastname,
   };
 
-  const handleSubmit = async () => {
-    createCustomer(data, setuser);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await createCustomer(data, setuser);
+
+      console.log(res);
+      if (res.status == 201) {
+        toast.success("User Created");
+      } else if (res.status == 400) {
+        toast.error("Email already exists");
+      }
+    } catch (error) {
+      toast.error("Email already exists");
+    }
     sessionStorage.setItem("accountemail", accountemail);
+
+    return false;
   };
 
   const [iscustomer, setIscustomer] = useState(false);
@@ -37,41 +52,54 @@ const Signup = () => {
       {!iscustomer && (
         <div className={styles.names}>
           <h2>Create account to shop!</h2>
-          <input
-            type="text"
-            placeholder="First Name"
-            name="firstName"
-            value={accountfirstname}
-            onChange={(e) => setaccountfirstname(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            name="lastName"
-            value={accountlastname}
-            onChange={(e) => setaccountlastname(e.target.value)}
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={accountemail}
-            onChange={(e) => setaccountemail(e.target.value)}
-            required
-          />
-          <button onClick={() => handleSubmit()} type="submit">
-            Sign Up
-          </button>
-          <span style={{ textAlign: "center" }}>
+          <form onSubmit={handleSubmit} className={styles.names}>
+            <input
+              type="text"
+              placeholder="First Name"
+              name="firstName"
+              value={accountfirstname}
+              onChange={(e) => setaccountfirstname(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              name="lastName"
+              value={accountlastname}
+              onChange={(e) => setaccountlastname(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={accountemail}
+              onChange={(e) => setaccountemail(e.target.value)}
+              required
+            />
+            <button style={{ marginTop: "-10px" }} type="submit">
+              Sign Up
+            </button>
+          </form>
+          <span style={{ textAlign: "center", marginTop: "-10px" }}>
             or sign in if you already have an account
           </span>
-          <button onClick={() => setIscustomer(true)}> Sign in</button>
-          <ToastContainer />
+
+          <div className={styles.buttons}>
+            <button onClick={() => setIscustomer(true)}> Sign in</button>
+            <Link href="/shipping">
+              <button>Checkout</button>
+            </Link>
+            <Link href="/">
+              <button>Let's shop</button>
+            </Link>
+          </div>
+          <ToastContainer position="bottom-right" />
         </div>
       )}
-      {iscustomer && <Signin />}
+      {iscustomer && (
+        <Signin iscustomer={iscustomer} setIscustomer={setIscustomer} />
+      )}
     </main>
   );
 };

@@ -6,12 +6,6 @@ import { getProductVariations } from "../lib/woocommerce";
 export const useStore = create((set) => ({
   // handling data
 
-  productsarray: [],
-  setproductsarray: (value) => set(() => ({ productsarray: value })),
-
-  productdetail: [],
-  setproductdetail: (value) => set(() => ({ productdetail: value })),
-
   storeproducts: [],
 
   setstoreproducts: (value) => set(() => ({ storeproducts: value })),
@@ -106,7 +100,13 @@ export const useStore = create((set) => ({
 
   user: {
     first_name: "",
+    last_name: "",
     email: "",
+    shipping: {
+      city: "",
+      address_1: "",
+      address_2: "",
+    },
   },
 
   setuser: (value) => set(() => ({ user: value })),
@@ -119,4 +119,13 @@ export const useStore = create((set) => ({
 
   accountemail: "",
   setaccountemail: (value) => set(() => ({ accountemail: value })),
+
+  city: "",
+  setcity: (value) => set(() => ({ city: value })),
+
+  street: "",
+  setstreet: (value) => set(() => ({ street: value })),
+
+  home: "",
+  sethome: (value) => set(() => ({ home: value })),
 }));

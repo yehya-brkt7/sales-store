@@ -6,7 +6,8 @@
   flex-wrap: wrap;
   width: 100%;
   row-gap: 50px;
-  padding-top: 0px;
+  padding-top: 50px;
+  margin-bottom: 50px;
 }
 
 .names {
@@ -19,7 +20,7 @@
   row-gap: 40px;
   width: 60%;
   background-color: white;
-  padding-top: 30px;
+  padding-top: 40px;
   border-radius: 15px;
 }
 
@@ -38,14 +39,16 @@
   height: 40px;
   background-color: transparent;
   color: black;
-  border: 2px solid black;
+  border: 2px solid white;
   transition: transform 0.2s linear 0s;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .names button:hover {
   transform: scale(1.05);
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
 }
 
 .names h2 {
@@ -56,12 +59,4 @@
   .names {
     width: 80%;
   }
-}
-
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  justify-content: center;
-  align-items: center;
 }

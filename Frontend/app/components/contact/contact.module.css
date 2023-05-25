@@ -1,7 +1,7 @@
 .main {
   display: flex;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   flex-wrap: wrap;
 }
 
@@ -12,6 +12,7 @@
   flex: 1 0 33.33%;
   align-items: center;
   flex-wrap: wrap;
+  background-color: black;
 }
 
 .secondcolumn {
@@ -46,7 +47,7 @@
 .backgroundcontent {
   position: absolute;
   bottom: 5%;
-  color: white;
+  color: black;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -59,6 +60,7 @@
 .socials {
   display: flex;
   justify-content: space-evenly;
+  color: white;
 }
 
 .socials span i {
@@ -91,8 +93,8 @@
 
 .names input {
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
   width: 48% !important;
 }
 
@@ -106,8 +108,8 @@
   width: 79%;
   height: 50px;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
 }
 
 .secondcolumn button {
@@ -115,23 +117,23 @@
   width: 200px;
   height: 40px;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
   transition: transform 0.2s linear 0s;
 }
 
 .secondcolumn button:hover {
   transform: scale(1.05);
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
 }
 
 .textarea {
   height: 100px !important;
   width: 79%;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
 }
 
 .secondcolumn input::placeholder,

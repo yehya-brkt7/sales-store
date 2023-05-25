@@ -87,9 +87,9 @@ const NavBar = () => {
             </Link>
           </Nav.Link>
 
-          <Nav.Link href="#action1" className={styles.checkoutButton}>
+          {/* <Nav.Link href="/shipping" className={styles.checkoutButton}>
             <Button variant="outline-success">Checkout</Button>
-          </Nav.Link>
+          </Nav.Link> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>
