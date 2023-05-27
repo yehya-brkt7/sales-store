@@ -40,6 +40,10 @@ const Signup = () => {
     console.log(session);
   }, [session]);
 
+  useEffect(() => {
+    sessionStorage.setItem("accountemail", userEmail);
+  }, [userEmail]);
+
   const data = {
     email: accountemail,
     first_name: accountfirstname,

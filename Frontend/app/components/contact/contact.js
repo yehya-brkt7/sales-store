@@ -32,7 +32,6 @@ const Contact = () => {
 
       if (storedEmail != "") fetchData();
     }
-    toast("make sure you're logged in the send a message");
   }, []);
 
   const [fname, setFname] = useState("");
@@ -61,35 +60,29 @@ const Contact = () => {
     setMessage(event.target.value);
   };
 
+  const formData = {
+    fname: fname,
+    lname: lname,
+    phone: phone,
+    email: user.email === "" ? email : user.email,
+    message: message,
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append("fname", fname);
-    formData.append("lname", lname);
-    formData.append("phone", phone);
-    formData.append("email", email);
-    formData.append("message", message);
-
     try {
-      const response = await fetch("http://localhost:4000/send-email", {
+      const response = await fetch("https://eodul1qofig11le.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fname, lname, phone, email, message }),
+        body: JSON.stringify(formData),
       });
-
-      toast("Message Sent!");
-      if (response.ok) {
-        setFname("");
-        setLname("");
-        setPhone("");
-        setEmail("");
-        setMessage("");
-      } else {
-      }
-    } catch (error) {}
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -168,7 +161,14 @@ const Contact = () => {
             onChange={handleMessageChange}
             required
           />
-          <button type="submit">send</button>
+          <button
+            style={{
+              cursor: user.first_name == "" ? "not-allowed" : "pointer",
+            }}
+            type="submit"
+          >
+            send
+          </button>
           <ToastContainer position="bottom-right" />
         </form>
       </section>

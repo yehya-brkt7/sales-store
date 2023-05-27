@@ -6,6 +6,7 @@ import { useStore } from "../../zustand/store";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import defaultpic from "../../../public/avatarpic.png";
 
 async function Profile() {
   const { user, accountemail, setuser, accountimage } = useStore(
@@ -16,10 +17,8 @@ async function Profile() {
     if (accountemail === "") {
       const storedEmail = sessionStorage.getItem("accountemail");
 
-      if (storedEmail != "") getCustomer(storedEmail, setuser);
+      getCustomer(storedEmail, setuser);
     }
-
-    console.log("image", accountimage);
   }, []);
 
   return (
@@ -30,15 +29,17 @@ async function Profile() {
         <div className={`col-12 col-sm-6 col-md-4 col-lg-3 ${styles.ourTeam}`}>
           <div className={`${styles.ourTeam}`}>
             <div className={`${styles.picture}`}>
-              <img
-                className={`${styles.imgFluid}`}
-                src={accountimage}
-                alt="Team Member"
-              />
+              <img className={`${styles.imgFluid}`} src={accountimage} alt="" />
             </div>
             <div className={`${styles.teamContent}`}>
-              <h3 className={`${styles.name}`}>{user.first_name}</h3>
-              <h4 className={`${styles.title}`}>{user.email}</h4>
+              <h3 className={`${styles.name}`}>
+                {typeof user == "undefined"
+                  ? "go to -> create account -> create customer info to view info"
+                  : user.first_name}{" "}
+              </h3>
+              <h4 className={`${styles.title}`}>
+                {typeof user == "undefined" ? "" : user.email}
+              </h4>
             </div>
             <ul className={`${styles.social}`}>
               <li>

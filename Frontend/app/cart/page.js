@@ -32,7 +32,7 @@ const Cart = () => {
         <p
           style={{ textAlign: "center", marginTop: "100px", fontSize: "20px" }}
         >
-          Cart is Empty {session.status}
+          Cart is Empty
         </p>
       ) : (
         <section className="pt-5 pb-5">

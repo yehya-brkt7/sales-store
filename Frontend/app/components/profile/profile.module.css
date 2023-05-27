@@ -44,6 +44,7 @@
   opacity: 0.9;
   transform: scale(3);
   transition: all 0.3s linear 0s;
+  z-index: -200;
 }
 
 .ourTeam:hover .picture::before {
@@ -55,8 +56,9 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: black;
+  /* background-color: black; */
   position: absolute;
+  border: 1px solid black;
   top: 0;
   left: 0;
   z-index: -1;
