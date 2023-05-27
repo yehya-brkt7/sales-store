@@ -120,6 +120,9 @@ export const useStore = create((set) => ({
   accountemail: "",
   setaccountemail: (value) => set(() => ({ accountemail: value })),
 
+  accountimage: "",
+  setaccountimage: (value) => set(() => ({ accountimage: value })),
+
   city: "",
   setcity: (value) => set(() => ({ city: value })),
 

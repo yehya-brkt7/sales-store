@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useStore } from "../zustand/store";
 import { CartProvider, useCart } from "react-use-cart";
+import { useSession } from "next-auth/react";
 
 const Cart = () => {
   const {
@@ -13,7 +14,17 @@ const Cart = () => {
     updateItemQuantity,
     removeItem,
     cartTotal,
+    emptyCart,
   } = useCart();
+
+  const session = useSession();
+  useEffect(() => {
+    if (session.status == "unauthenticated") {
+      emptyCart();
+    }
+
+    console.log(session);
+  }, [session]);
 
   return (
     <CartProvider>
@@ -21,7 +32,7 @@ const Cart = () => {
         <p
           style={{ textAlign: "center", marginTop: "100px", fontSize: "20px" }}
         >
-          Cart is Empty
+          Cart is Empty {session.status}
         </p>
       ) : (
         <section className="pt-5 pb-5">

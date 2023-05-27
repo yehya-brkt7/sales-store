@@ -17,7 +17,7 @@
   flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 40px;
-  width: 60%;
+  width: 100%;
   background-color: white;
   padding-top: 30px;
   border-radius: 15px;
@@ -27,7 +27,7 @@
   background-color: transparent;
   color: black;
   border: 2px solid black;
-  width: 48% !important;
+  width: 250px !important;
   padding-top: 5px;
   padding-bottom: 5px;
 }

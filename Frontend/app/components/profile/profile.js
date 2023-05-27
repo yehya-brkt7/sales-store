@@ -8,61 +8,71 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 async function Profile() {
-  const { user, accountemail, setuser } = useStore((state) => state);
+  const { user, accountemail, setuser, accountimage } = useStore(
+    (state) => state
+  );
 
   useEffect(() => {
     if (accountemail === "") {
       const storedEmail = sessionStorage.getItem("accountemail");
 
-      getCustomer(storedEmail, setuser);
+      if (storedEmail != "") getCustomer(storedEmail, setuser);
     }
+
+    console.log("image", accountimage);
   }, []);
 
   return (
-    <div>
-      <div className={styles.background}></div>
-
-      <div className={styles["outer-div"]}>
-        <div className={styles["inner-div"]}>
-          <div className={styles.front}>
-            <div className={styles["front__bkg-photo"]}></div>
-            <div className={styles["front__face-photo"]}></div>
-            <div className={styles["front__text"]}>
-              <h3 className={styles["front__text-header"]}>
-                {user.first_name === ""
-                  ? "Sign up / in to show profile"
-                  : user.first_name}
-              </h3>
-              <p className={styles["front__text-para"]}>
-                <i
-                  className={`fas fa-map-marker-alt ${styles["front-icons"]}`}
-                ></i>
-                {user.last_name}
-              </p>
-              <h3 className={styles["front__text-header"]}>{user.email}</h3>
-
-              <span className={styles["front__text-hover"]}>
-                Hover to view other details
-              </span>
+    <div className={styles.container}>
+      <div className={styles.row}>
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3"></div>
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3"></div>
+        <div className={`col-12 col-sm-6 col-md-4 col-lg-3 ${styles.ourTeam}`}>
+          <div className={`${styles.ourTeam}`}>
+            <div className={`${styles.picture}`}>
+              <img
+                className={`${styles.imgFluid}`}
+                src={accountimage}
+                alt="Team Member"
+              />
             </div>
-          </div>
-          <div className={styles.back}>
-            <div className={styles["social-media-wrapper"]}>
-              <a href="#" className={styles["social-icon"]}>
-                <i className="fab fa-codepen" aria-hidden="true"></i>
-              </a>
-              <a href="#" className={styles["social-icon"]}>
-                <i className="fab fa-github-square" aria-hidden="true"></i>
-              </a>
-              <a href="#" className={styles["social-icon"]}>
-                <i className="fab fa-linkedin-square" aria-hidden="true"></i>
-              </a>
-              <a href="#" className={styles["social-icon"]}>
-                <i className="fab fa-instagram" aria-hidden="true"></i>
-              </a>
+            <div className={`${styles.teamContent}`}>
+              <h3 className={`${styles.name}`}>{user.first_name}</h3>
+              <h4 className={`${styles.title}`}>{user.email}</h4>
             </div>
+            <ul className={`${styles.social}`}>
+              <li>
+                <a
+                  href="https://codepen.io/collection/XdWJOQ/"
+                  className="fa fa-facebook"
+                  aria-hidden="true"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://codepen.io/collection/XdWJOQ/"
+                  className="fa fa-twitter"
+                  aria-hidden="true"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://codepen.io/collection/XdWJOQ/"
+                  className="fa fa-google-plus"
+                  aria-hidden="true"
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://codepen.io/collection/XdWJOQ/"
+                  className="fa fa-linkedin"
+                  aria-hidden="true"
+                ></a>
+              </li>
+            </ul>
           </div>
         </div>
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3"></div>
       </div>
       <ToastContainer />
     </div>

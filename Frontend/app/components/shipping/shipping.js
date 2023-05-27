@@ -55,34 +55,52 @@ const Shipping = () => {
   return (
     <main className={styles.main}>
       <div className={styles.names}>
-        {/* <Link href="/signup">
-            <button>Sign in first</button>
-          </Link> */}
         <h2>Fill your shipping details!</h2>
-        <input
-          type="text"
-          placeholder="City"
-          name="city"
-          value={city}
-          onChange={(e) => setcity(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Street"
-          name="street"
-          value={street}
-          onChange={(e) => setstreet(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Home"
-          name="home"
-          value={home}
-          onChange={(e) => sethome(e.target.value)}
-          required
-        />
+
+        <section className={styles.inputs}>
+          <div className={styles.inputcontainer}>
+            <label>
+              City:
+              <input
+                type="text"
+                placeholder="City"
+                name="city"
+                value={city}
+                onChange={(e) => setcity(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+
+          <div className={styles.inputcontainer}>
+            <label>
+              {" "}
+              Street:
+              <input
+                type="text"
+                placeholder="Street"
+                name="street"
+                value={street}
+                onChange={(e) => setstreet(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+
+          <div className={styles.inputcontainer}>
+            <label>
+              Home:
+              <input
+                type="email"
+                placeholder="Home"
+                name="home"
+                value={home}
+                onChange={(e) => sethome(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+        </section>
         <Link href="/checkout">
           <button
             style={{ marginTop: "-10px" }}
@@ -92,7 +110,6 @@ const Shipping = () => {
             Checkout
           </button>
         </Link>
-
         <ToastContainer />
       </div>
     </main>

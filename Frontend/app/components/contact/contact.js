@@ -30,7 +30,7 @@ const Contact = () => {
         } catch (error) {}
       };
 
-      fetchData();
+      if (storedEmail != "") fetchData();
     }
     toast("make sure you're logged in the send a message");
   }, []);

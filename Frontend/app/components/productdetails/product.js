@@ -38,7 +38,7 @@ const Productdetail = ({ productdetail }) => {
         } catch (error) {}
       };
 
-      fetchData();
+      if (storedEmail != "") fetchData();
     }
     toast("make sure you're logged in to shop!");
 
