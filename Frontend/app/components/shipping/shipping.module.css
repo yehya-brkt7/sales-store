@@ -61,26 +61,23 @@
   }
 }
 
-.inputs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  row-gap: 50px;
-}
-
 .firstcolumn {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   row-gap: 20px;
-  width: 80%;
 }
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 150px;
   flex-wrap: wrap;
+}
+
+.inputcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

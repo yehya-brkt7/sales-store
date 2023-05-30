@@ -3,8 +3,6 @@
 import styles from "./shipping.module.css";
 import { useStore } from "../../zustand/store";
 import { getCustomer, updateCustomer } from "@/app/lib/woocommerce";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import SimpleMap from "./maps";
@@ -25,7 +23,6 @@ const Shipping = () => {
   useEffect(() => {
     const storedEmail = localStorage.getItem("accountemail");
     getCustomer(accountemail == "" ? storedEmail : accountemail, setuser);
-    // toast("make sure you're logged in first");
 
     console.log("user", user);
   }, [user.city, user.address_1, user.address_2]);
@@ -59,55 +56,45 @@ const Shipping = () => {
         <h2>Fill your shipping details!</h2>
 
         <section className={styles.container}>
-          <section className={styles.inputs}>
-            <div className={styles.firstcolumn}>
-              <div className={styles.inputcontainer}>
-                <label>
-                  City:
-                  <input
-                    type="text"
-                    placeholder="City"
-                    name="city"
-                    value={city}
-                    onChange={(e) => setcity(e.target.value)}
-                    required
-                  />
-                </label>
-              </div>
-              <div className={styles.inputcontainer}>
-                <label>
-                  {" "}
-                  Street:
-                  <input
-                    type="text"
-                    placeholder="Street"
-                    name="street"
-                    value={street}
-                    onChange={(e) => setstreet(e.target.value)}
-                    required
-                  />
-                </label>
-              </div>
-              <div className={styles.inputcontainer}>
-                <label>
-                  Home:
-                  <input
-                    type="email"
-                    placeholder="Home"
-                    name="home"
-                    value={home}
-                    onChange={(e) => sethome(e.target.value)}
-                    required
-                  />
-                </label>
-              </div>
-              <p style={{ textAlign: "end", width: "400px" }}>
-                {" "}
-                You can use google maps to locate (optional) (turned off for
-                now)
-              </p>
+          <div className={styles.firstcolumn}>
+            <div className={styles.inputcontainer}>
+              City
+              <input
+                type="text"
+                placeholder="City"
+                name="city"
+                value={city}
+                onChange={(e) => setcity(e.target.value)}
+                required
+              />
             </div>
-          </section>
+            <div className={styles.inputcontainer}>
+              Street
+              <input
+                type="text"
+                placeholder="Street"
+                name="street"
+                value={street}
+                onChange={(e) => setstreet(e.target.value)}
+                required
+              />
+            </div>
+            <div className={styles.inputcontainer}>
+              Home
+              <input
+                type="email"
+                placeholder="Home"
+                name="home"
+                value={home}
+                onChange={(e) => sethome(e.target.value)}
+                required
+              />
+            </div>
+            <p style={{ textAlign: "center", width: "400px" }}>
+              {" "}
+              You can use google maps to locate (optional) (turned off for now)
+            </p>
+          </div>
 
           <SimpleMap />
         </section>
@@ -120,7 +107,6 @@ const Shipping = () => {
             Checkout
           </button>
         </Link>
-        <ToastContainer />
       </div>
     </main>
   );

@@ -4,9 +4,6 @@ import styles from "./profile.module.css";
 import { getCustomer } from "@/app/lib/woocommerce";
 import { useStore } from "../../zustand/store";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import defaultpic from "../../../public/avatarpic.png";
 
 async function Profile() {
   const { user, accountemail, setuser, accountimage, setaccountimage } =
@@ -75,7 +72,6 @@ async function Profile() {
         </div>
         <div className="col-12 col-sm-6 col-md-4 col-lg-3"></div>
       </div>
-      <ToastContainer />
     </div>
   );
 }

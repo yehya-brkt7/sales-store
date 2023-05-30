@@ -18,6 +18,7 @@ export default function SimpleMap() {
       style={{
         height: "250px",
         width: "250px",
+        marginTop: "20px",
       }}
     >
       <GoogleMapReact

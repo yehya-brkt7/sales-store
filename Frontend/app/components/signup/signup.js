@@ -3,8 +3,6 @@
 import styles from "./signup.module.css";
 import { useStore } from "../../zustand/store";
 import { createCustomer } from "@/app/lib/woocommerce";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import Signin from "./signin";
 import Link from "next/link";
@@ -74,7 +72,6 @@ const Signup = () => {
           <Link href="/signup">
             <button onClick={() => signOut()}>Sign out</button>
           </Link>
-          <ToastContainer position="bottom-right" />
         </div>
       )}
       {iscustomer && (

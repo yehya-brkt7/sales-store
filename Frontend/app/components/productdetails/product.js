@@ -40,7 +40,7 @@ const Productdetail = ({ productdetail }) => {
 
       if (storedEmail != "") fetchData();
     }
-    toast("make sure you're logged in to shop!");
+    toast.warning("make sure you're logged in to shop!");
 
     setSelectedsize("select size");
   }, []);
@@ -99,7 +99,7 @@ const Productdetail = ({ productdetail }) => {
     selectedsize === "select size"
       ? toast.warning("Please select a size")
       : (addItem(cartproduct),
-        toast(
+        toast.success(
           `${cartproduct.name} added to cart with size: ${selectedsize} and color: ${productcolor}`
         ));
   };
