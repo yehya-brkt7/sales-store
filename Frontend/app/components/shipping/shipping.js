@@ -90,7 +90,7 @@ const Shipping = () => {
                 required
               />
             </div>
-            <p style={{ textAlign: "center", width: "400px" }}>
+            <p style={{ textAlign: "center", width: "300px" }}>
               {" "}
               You can use google maps to locate (optional) (turned off for now)
             </p>
