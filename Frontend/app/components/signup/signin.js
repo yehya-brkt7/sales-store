@@ -100,9 +100,6 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
         </form>
 
         <div className={styles.buttons}>
-          <Link href="/shipping">
-            <button>Checkout</button>
-          </Link>
           <Link href="/">
             <button>Let's Shop</button>
           </Link>
