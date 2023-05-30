@@ -18,7 +18,7 @@
   flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 40px;
-  width: 100vw;
+  width: 100%;
   padding-top: 40px;
   border-radius: 15px;
 }
