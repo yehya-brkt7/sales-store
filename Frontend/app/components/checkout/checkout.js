@@ -4,12 +4,20 @@ import styles from "./checkout.module.css";
 import { CartProvider, useCart } from "react-use-cart";
 import { useStore } from "../../zustand/store";
 import { useEffect, useState } from "react";
-import { getCustomer, createOrder } from "@/app/lib/woocommerce";
+import {
+  getCustomer,
+  createOrder,
+  getPaymentGatewayUrl,
+} from "@/app/lib/woocommerce";
+import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
   const { totalUniqueItems, items, cartTotal } = useCart();
 
-  const { user, setuser, accountemail } = useStore((state) => state);
+  const { user, setuser, accountemail, productid } = useStore((state) => state);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (accountemail === "") {
@@ -27,6 +35,20 @@ const Checkout = () => {
     setPaymentmethodtitle(e.target.name);
   };
 
+  const [itemlist, setItemlist] = useState([]);
+  useEffect(() => {
+    const lineItems = items.map((item) => {
+      return {
+        product_id: parseInt(item.id.split("-")[0]),
+
+        quantity: item.quantity,
+      };
+    });
+
+    setItemlist(lineItems);
+    console.log(lineItems);
+  }, [items]);
+
   const data = {
     payment_method: paymentmethod,
     payment_method_title: paymentmethodTitle,
@@ -39,7 +61,31 @@ const Checkout = () => {
       city: user.shipping.city,
       email: user.email,
     },
-    line_items: items,
+    line_items: itemlist,
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Step 1: Create the order in WooCommerce
+      await createOrder(data);
+      toast.success("order created");
+
+      // Step 2: Redirect the user to the payment gateway page
+      // await getPaymentGatewayUrl(paymentmethod, url);
+
+      // window.location.href = getPaymentGatewayUrl;
+
+      // console.log(createdOrder);
+      // Note: Depending on the payment gateway integration,
+      // you may need to pass the order ID or other relevant information
+      // in the payment gateway URL. Adjust the `getPaymentGatewayUrl` function accordingly.
+    } catch (error) {
+      // Handle any error that occurred during the order creation
+      toast.error("failed to make order");
+      console.error("Error creating order:", error);
+    }
   };
 
   return (
@@ -53,7 +99,7 @@ const Checkout = () => {
           />
         </div>
         <div className={styles.rightside}>
-          <form action="">
+          <form action="" onSubmit={handleFormSubmit}>
             <h1>CheckOut</h1>
             <h2>Payment Information</h2>
 
@@ -90,6 +136,7 @@ const Checkout = () => {
           </form>
         </div>
       </div>
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };

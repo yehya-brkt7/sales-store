@@ -146,6 +146,27 @@ async function createOrder(data) {
     });
 }
 
+async function getOrders() {
+  try {
+    const response = await wooCommerce.get("orders");
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data);
+    throw error;
+  }
+}
+
+async function getPaymentGatewayUrl(data, url) {
+  wooCommerce
+    .get(`payment_gateways/${data}`)
+    .then((response) => {
+      console.log(response.data);
+      return url;
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
+}
 export {
   wooCommerce,
   getAllProducts,
@@ -159,4 +180,6 @@ export {
   getAllCustomers,
   updateCustomer,
   createOrder,
+  getOrders,
+  getPaymentGatewayUrl,
 };

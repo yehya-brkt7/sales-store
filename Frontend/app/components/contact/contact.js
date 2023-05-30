@@ -72,16 +72,16 @@ const Contact = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("https://eodul1qofig11le.m.pipedream.net", {
+      await fetch("https://eodul1qofig11le.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      console.log(response);
+      toast.success("Email Sent!");
     } catch (error) {
-      console.log(error.message);
+      toast.error("Failed to send Email");
     }
   };
 

@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import SimpleMap from "./maps";
 
 const Shipping = () => {
   const {
@@ -71,7 +72,6 @@ const Shipping = () => {
               />
             </label>
           </div>
-
           <div className={styles.inputcontainer}>
             <label>
               {" "}
@@ -86,7 +86,6 @@ const Shipping = () => {
               />
             </label>
           </div>
-
           <div className={styles.inputcontainer}>
             <label>
               Home:
@@ -101,6 +100,12 @@ const Shipping = () => {
             </label>
           </div>
         </section>
+        <p style={{ textAlign: "center" }}>
+          {" "}
+          You can use google maps to locate (optional) (turned off for now)
+        </p>
+
+        <SimpleMap />
         <Link href="/checkout">
           <button
             style={{ marginTop: "-10px" }}

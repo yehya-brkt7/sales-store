@@ -13,7 +13,7 @@ const NavBar = () => {
   return (
     <Navbar bg="light" expand="lg" className={styles.navbar}>
       <Container fluid>
-        <Navbar.Brand href="#">
+        <Navbar.Brand>
           <Image
             loading="lazy"
             src={logo}
@@ -29,29 +29,30 @@ const NavBar = () => {
             style={{ maxHeight: "400px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1" className={styles.navlink}>
+            <Nav.Link className={styles.navlink}>
               <Link className={styles.link} href="/">
                 Home
               </Link>
             </Nav.Link>
-            <Nav.Link href="#action2" className={styles.navlink}>
+            <Nav.Link className={styles.navlink}>
               <Link className={styles.link} href="/about">
                 About
               </Link>
             </Nav.Link>
 
-            <Nav.Link href="#" className={styles.navlink}>
+            <Nav.Link className={styles.navlink}>
               <Link className={styles.link} href="/contact">
                 Contact
               </Link>
             </Nav.Link>
-            <Nav.Link
-              style={{ marginRight: "20px" }}
-              href="#action1"
-              className={styles.navlink}
-            >
+            <Nav.Link className={styles.navlink}>
               <Link className={styles.link} href="/profile">
                 Profile
+              </Link>
+            </Nav.Link>
+            <Nav.Link className={styles.navlink}>
+              <Link className={styles.link} href="/adminpanel">
+                Admin Panel
               </Link>
             </Nav.Link>
           </Nav>
@@ -73,15 +74,12 @@ const NavBar = () => {
             </Button>{" "}
           </Form> */}
 
-          <Nav.Link href="#action1" className={styles.navlink}>
+          <Nav.Link className={styles.navlink}>
             <Link className={styles.link} href="/signup">
               Create-Account
             </Link>
           </Nav.Link>
-          <Nav.Link
-            href="#action1"
-            className={`${styles.checkoutIcon} ${styles.navlink}`}
-          >
+          <Nav.Link className={`${styles.checkoutIcon} ${styles.navlink}`}>
             <Link href="/cart">
               <i class="bi bi-cart3"></i>
             </Link>
