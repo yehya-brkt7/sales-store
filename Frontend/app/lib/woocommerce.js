@@ -140,6 +140,7 @@ async function createOrder(data) {
     .post("orders", data)
     .then((response) => {
       console.log(response.data);
+      return response;
     })
     .catch((error) => {
       console.log(error.response.data);
@@ -154,6 +155,30 @@ async function getOrders() {
     console.log(error.response.data);
     throw error;
   }
+}
+
+async function updateOrder(id, data) {
+  wooCommerce
+    .put(`orders/${id}`, data)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+}
+
+async function deleteOrder(id) {
+  wooCommerce
+    .delete(`orders/${id}`, {
+      force: true,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+    });
 }
 
 async function getPaymentGatewayUrl(data, url) {
@@ -181,5 +206,7 @@ export {
   updateCustomer,
   createOrder,
   getOrders,
+  updateOrder,
+  deleteOrder,
   getPaymentGatewayUrl,
 };

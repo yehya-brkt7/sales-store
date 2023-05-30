@@ -18,11 +18,12 @@ const Contact = () => {
       setFname(user.first_name || "");
       setLname(user.last_name || "");
     }
+    console.log("user", user);
   }, [user]);
 
   useEffect(() => {
     if (accountemail === "") {
-      const storedEmail = sessionStorage.getItem("accountemail");
+      const storedEmail = localStorage.getItem("accountemail");
 
       const fetchData = async () => {
         try {
@@ -30,7 +31,7 @@ const Contact = () => {
         } catch (error) {}
       };
 
-      if (storedEmail != "") fetchData();
+      fetchData();
     }
   }, []);
 
@@ -64,7 +65,7 @@ const Contact = () => {
     fname: fname,
     lname: lname,
     phone: phone,
-    email: user.email === "" ? email : user.email,
+    email: user && user.email && user.email != "" ? user.email : email,
     message: message,
   };
 
@@ -139,7 +140,7 @@ const Contact = () => {
             type="email"
             placeholder="Email"
             name="email"
-            value={user.email === "" ? email : user.email}
+            value={user && user.email && user.email != "" ? user.email : email}
             onChange={handleEmailChange}
             required
           />
@@ -163,7 +164,10 @@ const Contact = () => {
           />
           <button
             style={{
-              cursor: user.first_name == "" ? "not-allowed" : "pointer",
+              cursor:
+                user && user.first_name && user.first_name == ""
+                  ? "not-allowed"
+                  : "pointer",
             }}
             type="submit"
           >

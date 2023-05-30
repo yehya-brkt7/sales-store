@@ -12,8 +12,13 @@ import Link from "next/link";
 import { signIn, useSession, signOut } from "next-auth/react";
 
 const Signup = () => {
-  const { accountfirstname, accountlastname, accountemail, setaccountimage } =
-    useStore((state) => state);
+  const {
+    accountfirstname,
+    accountlastname,
+    accountemail,
+    setaccountimage,
+    accountimage,
+  } = useStore((state) => state);
 
   const session = useSession();
 
@@ -41,8 +46,9 @@ const Signup = () => {
   }, [session]);
 
   useEffect(() => {
-    sessionStorage.setItem("accountemail", userEmail);
-  }, [userEmail]);
+    localStorage.setItem("accountemail", userEmail);
+    localStorage.setItem("accountimage", accountimage);
+  }, [userEmail, accountimage]);
 
   const data = {
     email: accountemail,

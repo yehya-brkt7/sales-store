@@ -9,16 +9,16 @@ import "react-toastify/dist/ReactToastify.css";
 import defaultpic from "../../../public/avatarpic.png";
 
 async function Profile() {
-  const { user, accountemail, setuser, accountimage } = useStore(
-    (state) => state
-  );
+  const { user, accountemail, setuser, accountimage, setaccountimage } =
+    useStore((state) => state);
 
   useEffect(() => {
     if (accountemail === "") {
-      const storedEmail = sessionStorage.getItem("accountemail");
+      const storedEmail = localStorage.getItem("accountemail");
 
       getCustomer(storedEmail, setuser);
     }
+    setaccountimage(localStorage.getItem("accountimage"));
   }, []);
 
   return (
@@ -33,8 +33,8 @@ async function Profile() {
             </div>
             <div className={`${styles.teamContent}`}>
               <h3 className={`${styles.name}`}>
-                {typeof user == "undefined"
-                  ? "go to -> create account -> create customer info to view info"
+                {typeof user == "undefined" || user.first_name == ""
+                  ? "go to -> create account -> create/retrieve customer info to view info"
                   : user.first_name}{" "}
               </h3>
               <h4 className={`${styles.title}`}>

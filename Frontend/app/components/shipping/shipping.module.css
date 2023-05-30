@@ -18,8 +18,7 @@
   flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 40px;
-  width: 60%;
-  /* margin-right: 50px; */
+  width: 100vw;
   padding-top: 40px;
   border-radius: 15px;
 }
@@ -53,7 +52,7 @@
 
 .names h2 {
   text-align: center;
-  margin-left: 50px;
+  font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 600px) {
@@ -65,7 +64,23 @@
 .inputs {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  row-gap: 50px;
+}
+
+.firstcolumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
   row-gap: 20px;
-  margin-right: 20px;
+  width: 80%;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 150px;
+  flex-wrap: wrap;
 }

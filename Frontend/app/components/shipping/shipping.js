@@ -23,7 +23,7 @@ const Shipping = () => {
   } = useStore((state) => state);
 
   useEffect(() => {
-    const storedEmail = sessionStorage.getItem("accountemail");
+    const storedEmail = localStorage.getItem("accountemail");
     getCustomer(accountemail == "" ? storedEmail : accountemail, setuser);
     // toast("make sure you're logged in first");
 
@@ -58,54 +58,59 @@ const Shipping = () => {
       <div className={styles.names}>
         <h2>Fill your shipping details!</h2>
 
-        <section className={styles.inputs}>
-          <div className={styles.inputcontainer}>
-            <label>
-              City:
-              <input
-                type="text"
-                placeholder="City"
-                name="city"
-                value={city}
-                onChange={(e) => setcity(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-          <div className={styles.inputcontainer}>
-            <label>
-              {" "}
-              Street:
-              <input
-                type="text"
-                placeholder="Street"
-                name="street"
-                value={street}
-                onChange={(e) => setstreet(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-          <div className={styles.inputcontainer}>
-            <label>
-              Home:
-              <input
-                type="email"
-                placeholder="Home"
-                name="home"
-                value={home}
-                onChange={(e) => sethome(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-        </section>
-        <p style={{ textAlign: "center" }}>
-          {" "}
-          You can use google maps to locate (optional) (turned off for now)
-        </p>
+        <section className={styles.container}>
+          <section className={styles.inputs}>
+            <div className={styles.firstcolumn}>
+              <div className={styles.inputcontainer}>
+                <label>
+                  City:
+                  <input
+                    type="text"
+                    placeholder="City"
+                    name="city"
+                    value={city}
+                    onChange={(e) => setcity(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <div className={styles.inputcontainer}>
+                <label>
+                  {" "}
+                  Street:
+                  <input
+                    type="text"
+                    placeholder="Street"
+                    name="street"
+                    value={street}
+                    onChange={(e) => setstreet(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <div className={styles.inputcontainer}>
+                <label>
+                  Home:
+                  <input
+                    type="email"
+                    placeholder="Home"
+                    name="home"
+                    value={home}
+                    onChange={(e) => sethome(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <p style={{ textAlign: "end", width: "400px" }}>
+                {" "}
+                You can use google maps to locate (optional) (turned off for
+                now)
+              </p>
+            </div>
+          </section>
 
-        <SimpleMap />
+          <SimpleMap />
+        </section>
         <Link href="/checkout">
           <button
             style={{ marginTop: "-10px" }}

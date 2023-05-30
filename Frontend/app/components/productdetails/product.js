@@ -30,7 +30,7 @@ const Productdetail = ({ productdetail }) => {
 
   useEffect(() => {
     if (accountemail === "") {
-      const storedEmail = sessionStorage.getItem("accountemail");
+      const storedEmail = localStorage.getItem("accountemail");
 
       const fetchData = async () => {
         try {

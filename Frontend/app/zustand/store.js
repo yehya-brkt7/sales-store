@@ -31,6 +31,9 @@ export const useStore = create((set) => ({
     set({ productvariations: productvars });
   },
 
+  orderdelete: false,
+  setorderdelete: (value) => set(() => ({ orderdelete: value })),
+
   //handling filters
 
   selectedcolor: "all",

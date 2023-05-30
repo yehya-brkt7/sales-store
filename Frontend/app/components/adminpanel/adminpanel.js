@@ -4,7 +4,7 @@ import styles from "./adminpanel.module.css";
 import Link from "next/link";
 import Statusdropdown from "./dropdown";
 import { useEffect, useState } from "react";
-import { getOrders } from "../../lib/woocommerce";
+import { getOrders, updateOrder, deleteOrder } from "../../lib/woocommerce";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStore } from "../../zustand/store";
@@ -14,6 +14,7 @@ const Adminpanel = () => {
 
   const [orders, setOrders] = useState([]);
 
+  //get all orders
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,12 +23,27 @@ const Adminpanel = () => {
       } catch (error) {
         // Handle the error here
         toast.error("failed to load orders");
-        console.log(error.message);
       }
     };
 
     fetchData();
-  }, []);
+  }, [orders]);
+
+  //update order
+  const updateOrderDetails = async (orderId, data) => {
+    try {
+      await updateOrder(orderId, data);
+    } catch (error) {
+      // Handle the error here
+      toast.error(error.message);
+    }
+  };
+
+  //delete order
+  const handleDelete = async (id) => {
+    await deleteOrder(id);
+    toast.success("order deleted!");
+  };
 
   return (
     <section className="pt-5 pb-5">
@@ -55,7 +71,7 @@ const Adminpanel = () => {
                 {orders &&
                   orders.length != 0 &&
                   orders.map((order) => (
-                    <tr>
+                    <tr key={order.id}>
                       <td data-th="Product">
                         <div className="row">
                           <div className="col-md-3 text-left">
@@ -83,12 +99,19 @@ const Adminpanel = () => {
 
                       <td data-th="Quantity">
                         <div className="quantity-input text-center">
-                          <Statusdropdown />
+                          <Statusdropdown
+                            order={order}
+                            updateOrderDetails={updateOrderDetails}
+                            id={order.id}
+                          />
                         </div>
                       </td>
                       <td className="actions" data-th="">
                         <div className="text-center">
-                          <button className="btn btn-white border-secondary bg-white btn-md mb-2">
+                          <button
+                            className="btn btn-white border-secondary bg-white btn-md mb-2"
+                            onClick={() => handleDelete(order.id)}
+                          >
                             <i class="bi bi-trash"></i>
                           </button>
                         </div>
@@ -106,6 +129,7 @@ const Adminpanel = () => {
           </div>
         </div>
       </div>
+
       <ToastContainer position="bottom-right" />
     </section>
   );

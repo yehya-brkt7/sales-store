@@ -28,7 +28,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     } catch (error) {
       toast.error(error.message);
     }
-    sessionStorage.setItem("accountemail", userEmail);
+    localStorage.setItem("accountemail", userEmail);
 
     return false;
   };
@@ -53,7 +53,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     } catch (error) {
       handleSubmit(e);
     }
-    sessionStorage.setItem("accountemail", userEmail);
+    localStorage.setItem("accountemail", userEmail);
 
     return false;
   };

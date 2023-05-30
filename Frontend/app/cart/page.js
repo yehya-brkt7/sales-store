@@ -17,13 +17,14 @@ const Cart = () => {
     emptyCart,
   } = useCart();
 
+  const { orderdelete, setorderdelete } = useStore((state) => state);
+
   const session = useSession();
   useEffect(() => {
-    if (session.status == "unauthenticated") {
+    if (session.status == "unauthenticated" || orderdelete == true) {
       emptyCart();
+      setorderdelete(false);
     }
-
-    console.log(session);
   }, [session]);
 
   return (
