@@ -1,22 +1,20 @@
 "use client";
 
 import styles from "./checkout.module.css";
-import { CartProvider, useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 import { useStore } from "../../zustand/store";
 import { useEffect, useState } from "react";
 import { getCustomer, createOrder } from "@/app/lib/woocommerce";
-import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
-  const { totalUniqueItems, items, cartTotal } = useCart();
+  const { totalItems, items, cartTotal, emptyCart } = useCart();
 
-  const { user, setuser, accountemail, setorderdelete } = useStore(
+  const { user, setuser, accountemail, orderdelete, setorderdelete } = useStore(
     (state) => state
   );
 
-  const router = useRouter();
-
+  //restore email from local storage to stay logged in
   useEffect(() => {
     if (accountemail === "") {
       const storedEmail = localStorage.getItem("accountemail");
@@ -24,6 +22,14 @@ const Checkout = () => {
       getCustomer(storedEmail, setuser);
     }
   }, []);
+
+  //empty cart if order is made
+  useEffect(() => {
+    if (orderdelete == true) {
+      emptyCart();
+      setorderdelete(false);
+    }
+  }, [orderdelete]);
 
   const [paymentmethod, setPaymentmethod] = useState("");
   const [paymentmethodTitle, setPaymentmethodtitle] = useState("");
@@ -33,6 +39,7 @@ const Checkout = () => {
     setPaymentmethodtitle(e.target.name);
   };
 
+  //pass itemList to checkout data
   const [itemlist, setItemlist] = useState([]);
   useEffect(() => {
     const lineItems = items.map((item) => {
@@ -44,9 +51,10 @@ const Checkout = () => {
     });
 
     setItemlist(lineItems);
-    console.log(lineItems);
   }, [items]);
 
+  const googleMapsLink = "https://www.google.com/maps/place/40.7128,-74.0060";
+  //pass data to createOrder
   const data = {
     payment_method: paymentmethod,
     payment_method_title: paymentmethodTitle,
@@ -60,8 +68,16 @@ const Checkout = () => {
       email: user.email,
     },
     line_items: itemlist,
+    status: "processing",
+    meta_data: [
+      {
+        key: "google_maps_link",
+        value: googleMapsLink,
+      },
+    ],
   };
 
+  //createOrder
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -72,7 +88,6 @@ const Checkout = () => {
       toast.success("order created");
     } catch (error) {
       toast.error("failed to make order");
-      console.error("Error creating order:", error);
     }
   };
 
@@ -80,11 +95,20 @@ const Checkout = () => {
     <div className={styles.mainscreen}>
       <div className={styles.card}>
         <div className={styles.leftside}>
-          <img
-            src="https://i.pinimg.com/originals/18/9d/dc/189ddc1221d9c1c779dda4ad37a35fa1.png"
-            className={styles.product}
-            alt="Shoes"
-          />
+          {items.map((item) => (
+            <div className={styles.itemcontainer}>
+              <h6 className={styles.itemname}>({item.quantity})</h6>
+              <h6 className={styles.itemname}>{item.name}</h6>
+              <h6
+                style={{
+                  width: "30px",
+                  height: "20px",
+                  backgroundColor: item.color,
+                  marginTop: "20px",
+                }}
+              ></h6>
+            </div>
+          ))}
         </div>
         <div className={styles.rightside}>
           <form action="" onSubmit={handleFormSubmit}>
@@ -111,10 +135,14 @@ const Checkout = () => {
                 {" "}
                 Cash on delivery
               </option>
+              <option name="PayPal" value="paypal">
+                {" "}
+                Paypal
+              </option>
             </select>
 
             <div>
-              <p>total unique items: {totalUniqueItems}</p>
+              <p>total items: {totalItems}</p>
               <p>total cost: ${cartTotal} + shipping cost:$10</p>
             </div>
             <p></p>

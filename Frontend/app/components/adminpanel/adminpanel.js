@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./adminpanel.module.css";
-import Link from "next/link";
 import Statusdropdown from "./dropdown";
 import { useEffect, useState } from "react";
 import { getOrders, updateOrder, deleteOrder } from "../../lib/woocommerce";
@@ -10,9 +9,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { useStore } from "../../zustand/store";
 
 const Adminpanel = () => {
-  const { accountimage } = useStore((state) => state);
+  const { accountimage, setaccountimage } = useStore((state) => state);
 
   const [orders, setOrders] = useState([]);
+
+  //restore account image
+  useEffect(() => {
+    setaccountimage(localStorage.getItem("accountimage"));
+  }, []);
 
   //get all orders
   useEffect(() => {
@@ -92,6 +96,14 @@ const Adminpanel = () => {
                               {order.billing.city}, {order.billing.address_1},{" "}
                               {order.billing.address_2}
                             </p>
+
+                            <a
+                              style={{ cursor: "pointer" }}
+                              href={order.meta_data[0].value}
+                              target="_blank"
+                            >
+                              view location
+                            </a>
                           </div>
                         </div>
                       </td>
@@ -109,6 +121,7 @@ const Adminpanel = () => {
                       <td className="actions" data-th="">
                         <div className="text-center">
                           <button
+                            id={styles.btn}
                             className="btn btn-white border-secondary bg-white btn-md mb-2"
                             onClick={() => handleDelete(order.id)}
                           >

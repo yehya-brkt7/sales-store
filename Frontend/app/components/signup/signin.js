@@ -10,11 +10,12 @@ import { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
 
 const Signin = ({ setIscustomer, userEmail, session }) => {
-  const { accountemail, setuser } = useStore((state) => state);
+  const { setuser } = useStore((state) => state);
 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
 
+  //login user
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -39,6 +40,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     last_name: lname,
   };
 
+  // create Account or login user
   const handleCreate = async (e) => {
     e.preventDefault();
     try {

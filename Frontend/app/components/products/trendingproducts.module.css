@@ -67,7 +67,7 @@
 .el-wrapper {
   width: 360px;
   padding: 15px;
-  margin: 15px auto;
+  margin: 25px auto;
   background-color: white;
   border-top-left-radius: 25%;
   border-bottom-left-radius: 5px;
@@ -76,7 +76,7 @@
   transition: transform 0.2s linear 0s;
   --s: 360px; /* the size of the image */
   --b: 6px; /* the border thickness*/
-  --g: 7px; /* the gap */
+  --g: 8px; /* the gap */
   --c: #007bff; /* the color */
 
   outline-offset: calc(var(--s) / -2);
@@ -86,7 +86,7 @@
 }
 
 .el-wrapper:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
   outline: var(--b) solid var(--c);
   outline-offset: var(--g);
 }
@@ -231,10 +231,10 @@
 
 .info-inner .p-name {
   font-family: "PT Sans", sans-serif;
-  font-size: 23px;
+  font-size: 20px;
   color: black;
   font-weight: bold;
-  margin-bottom: -35px;
+  margin-bottom: -20px;
 }
 
 .info-inner .p-company {

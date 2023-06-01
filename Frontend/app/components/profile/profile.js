@@ -9,6 +9,7 @@ async function Profile() {
   const { user, accountemail, setuser, accountimage, setaccountimage } =
     useStore((state) => state);
 
+  //restore email from local storage
   useEffect(() => {
     if (accountemail === "") {
       const storedEmail = localStorage.getItem("accountemail");

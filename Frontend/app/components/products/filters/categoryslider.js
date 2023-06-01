@@ -18,6 +18,7 @@ const ControlledCarousel = () => {
       onSelect={handleSelect}
       className={styles.slider}
       id="products"
+      interval={null}
     >
       <Carousel.Item className={index == 0 ? styles.items : ""}>
         <Categories

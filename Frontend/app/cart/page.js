@@ -1,10 +1,6 @@
-"use client";
+// "use client";
 import Link from "next/link";
-
-import { useEffect, useState } from "react";
-import { useStore } from "../zustand/store";
 import { CartProvider, useCart } from "react-use-cart";
-import { useSession } from "next-auth/react";
 
 const Cart = () => {
   const {
@@ -16,16 +12,6 @@ const Cart = () => {
     cartTotal,
     emptyCart,
   } = useCart();
-
-  const { orderdelete, setorderdelete } = useStore((state) => state);
-
-  const session = useSession();
-  useEffect(() => {
-    if (session.status == "unauthenticated" || orderdelete == true) {
-      emptyCart();
-      setorderdelete(false);
-    }
-  }, [session]);
 
   return (
     <CartProvider>

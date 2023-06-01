@@ -13,14 +13,15 @@ const Contact = () => {
   const { user, accountemail, setuser, accountfirstname, accountlastname } =
     useStore((state) => state);
 
+  //automatically fill out name
   useEffect(() => {
     if (user) {
       setFname(user.first_name || "");
       setLname(user.last_name || "");
     }
-    console.log("user", user);
   }, [user]);
 
+  //restore email to keep user logged in
   useEffect(() => {
     if (accountemail === "") {
       const storedEmail = localStorage.getItem("accountemail");
@@ -69,6 +70,7 @@ const Contact = () => {
     message: message,
   };
 
+  //send message function
   const handleSubmit = async (event) => {
     event.preventDefault();
 

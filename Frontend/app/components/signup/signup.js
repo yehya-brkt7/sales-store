@@ -22,6 +22,7 @@ const Signup = () => {
 
   const [userEmail, setUserEmail] = useState("");
 
+  //set user email and image
   useEffect(() => {
     if (
       session &&
@@ -34,25 +35,20 @@ const Signup = () => {
     }
   }, [session]);
 
+  //navigate to sign in if user is authenticated with google
   useEffect(() => {
     if (session.status == "authenticated") {
       setIscustomer(true);
     } else {
       setIscustomer(false);
     }
-    console.log(session);
   }, [session]);
 
+  //set user email and image to local storage
   useEffect(() => {
     localStorage.setItem("accountemail", userEmail);
     localStorage.setItem("accountimage", accountimage);
   }, [userEmail, accountimage]);
-
-  const data = {
-    email: accountemail,
-    first_name: accountfirstname,
-    last_name: accountlastname,
-  };
 
   const [iscustomer, setIscustomer] = useState(false);
 

@@ -28,6 +28,7 @@ const Productdetail = ({ productdetail }) => {
     setSelectedsize,
   } = useStore((state) => state);
 
+  //restore email from local storage to keep user logged in
   useEffect(() => {
     if (accountemail === "") {
       const storedEmail = localStorage.getItem("accountemail");
@@ -45,6 +46,7 @@ const Productdetail = ({ productdetail }) => {
     setSelectedsize("select size");
   }, []);
 
+  //set all images
   useEffect(() => {
     fetchvariations(productdetail.id);
 
@@ -86,6 +88,7 @@ const Productdetail = ({ productdetail }) => {
 
   const [price, setPrice] = useState("");
 
+  //fetch prices
   useEffect(() => {
     if (productvariations && productvariations.length > 0) {
       const price = productvariations[0].regularPrice;
@@ -95,6 +98,7 @@ const Productdetail = ({ productdetail }) => {
 
   const { addItem } = useCart();
 
+  //product size select
   const handleCart = () => {
     selectedsize === "select size"
       ? toast.warning("Please select a size")

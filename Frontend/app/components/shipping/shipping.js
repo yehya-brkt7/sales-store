@@ -20,6 +20,7 @@ const Shipping = () => {
     sethome,
   } = useStore((state) => state);
 
+  //restore email from local storage
   useEffect(() => {
     const storedEmail = localStorage.getItem("accountemail");
     getCustomer(accountemail == "" ? storedEmail : accountemail, setuser);
@@ -27,6 +28,7 @@ const Shipping = () => {
     console.log("user", user);
   }, [user.city, user.address_1, user.address_2]);
 
+  //automatically fill user data
   useEffect(() => {
     if (user) {
       setcity(user.shipping.city || "");
@@ -35,6 +37,7 @@ const Shipping = () => {
     }
   }, [user]);
 
+  //pass data to update user shipping options
   const data = {
     email: user.email,
     first_name: user.first_name,

@@ -8,8 +8,10 @@ import logo from "../../../public/logo.png";
 import Image from "next/image";
 import styles from "./navbar.module.css";
 import Link from "next/link";
+import { useCart } from "react-use-cart";
 
 const NavBar = () => {
+  const { totalItems } = useCart();
   return (
     <Navbar bg="light" expand="lg" className={styles.navbar}>
       <Container fluid>
@@ -56,23 +58,6 @@ const NavBar = () => {
               </Link>
             </Nav.Link>
           </Nav>
-          {/* <Form
-            onSubmit={handleSearch}
-            className="d-flex"
-            style={{ marginRight: "20px" }}
-          >
-            <Form.Control
-              type="search"
-              placeholder="Search Products"
-              className="me-2"
-              aria-label="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <Button type="submit" variant="dark">
-              Search
-            </Button>{" "}
-          </Form> */}
 
           <Nav.Link className={styles.navlink}>
             <Link className={styles.link} href="/signup">
@@ -81,13 +66,12 @@ const NavBar = () => {
           </Nav.Link>
           <Nav.Link className={`${styles.checkoutIcon} ${styles.navlink}`}>
             <Link href="/cart">
-              <i class="bi bi-cart3"></i>
+              <i style={{ color: "black" }} class="bi bi-cart3"></i>
             </Link>
+            <div className={styles.itemcount}>
+              <span>{totalItems}</span>
+            </div>
           </Nav.Link>
-
-          {/* <Nav.Link href="/shipping" className={styles.checkoutButton}>
-            <Button variant="outline-success">Checkout</Button>
-          </Nav.Link> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

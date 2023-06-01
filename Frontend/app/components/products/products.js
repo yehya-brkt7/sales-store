@@ -38,11 +38,13 @@ function Products({ products }) {
     setIProductIndex(id);
   };
 
+  //navigate to product
   const handleClick = (id, type) => {
     setrelatedproducttype(type);
     router.push(`/products/${id}`);
   };
 
+  //filter all products based on filter options
   const filteredProducts = products.filter(
     (product) =>
       (selectedcategory === "" ||
