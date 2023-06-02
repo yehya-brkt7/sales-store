@@ -49,18 +49,27 @@ const Trending = ({ products }) => {
         <Swiper
           // install Swiper modules
           modules={[Navigation, Pagination, Scrollbar, A11y]}
-          spaceBetween={10}
+          spaceBetween={20}
           navigation
           pagination={{ clickable: true }}
           breakpoints={{
-            400: {
-              slidesPerView: 1.2,
+            300: {
+              slidesPerView: 1,
+            },
+            500: {
+              slidesPerView: 1.3,
+            },
+            600: {
+              slidesPerView: 1.6,
             },
             740: {
-              slidesPerView: 1.5,
+              slidesPerView: 1.8,
             },
             890: {
               slidesPerView: 2.2,
+            },
+            1000: {
+              slidesPerView: 2.5,
             },
             1324: {
               slidesPerView: 3,
