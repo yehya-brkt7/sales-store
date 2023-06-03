@@ -6,6 +6,7 @@ import Trending from "./components/products/trendingproducts";
 import Filters from "./components/products/filters/filters";
 import ControlledCarousel from "./components/products/filters/categoryslider";
 
+//
 export default async function Home() {
   const products = await getAllProducts();
 
