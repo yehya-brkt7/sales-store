@@ -23,11 +23,33 @@ async function getAllProducts() {
   } catch (error) {}
 }
 
+// async function getProductById(id) {
+//   try {
+//     const { data } = await wooCommerce.get(`products/${id}`);
+//     return data;
+//   } catch (error) {}
+// }
+const productCache = {};
+
 async function getProductById(id) {
   try {
-    const { data } = await wooCommerce.get(`products/${id}`);
-    return data;
-  } catch (error) {}
+    if (productCache[id]) {
+      // Return the cached product if available
+      return productCache[id];
+    } else {
+      // Fetch the product data from the server
+      const { data } = await wooCommerce.get(`products/${id}`);
+
+      // Cache the product data
+      productCache[id] = data;
+
+      return data;
+    }
+  } catch (error) {
+    // Handle any errors that occur during the API request
+    console.error("Error fetching product:", error);
+    throw error;
+  }
 }
 
 async function getProductVariations(productId) {
