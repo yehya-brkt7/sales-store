@@ -14,6 +14,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
+  const [phone, setPhone] = useState("");
 
   //login user
   const handleSubmit = async (e) => {
@@ -38,6 +39,9 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     email: userEmail,
     first_name: fname,
     last_name: lname,
+    billing: {
+      phone: phone,
+    },
   };
 
   // create Account or login user
@@ -94,6 +98,14 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
             name="lname"
             value={lname}
             onChange={(e) => setLname(e.target.value)}
+            required
+          />
+          <input
+            type="phone"
+            placeholder="phone number"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required
           />
           <button style={{ width: "270px" }} type="submit">

@@ -16,7 +16,7 @@
   align-items: center;
   flex-wrap: wrap;
   column-gap: 20px;
-  row-gap: 40px;
+  row-gap: 30px;
   width: 100%;
   background-color: white;
   padding-top: 30px;
@@ -61,7 +61,8 @@
 .buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  column-gap: 25px;
   justify-content: center;
   align-items: center;
+  margin-top: -20px;
 }

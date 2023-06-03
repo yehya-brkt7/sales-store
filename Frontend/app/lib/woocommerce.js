@@ -68,22 +68,28 @@ async function getProductVariations(productId) {
 async function submitRating(data) {
   try {
     const response = await wooCommerce.post("products/reviews", data);
-
-    return response; // Return the response
+    return { response }; // Return the response
   } catch (error) {
     throw error; // Throw the error to be caught by the caller
   }
 }
+async function getRating(productId, email) {
+  try {
+    const response = await wooCommerce.get(
+      `products/reviews?product=${productId}`
+    );
+    const allReviews = response.data;
 
-async function getRating(productId) {
-  wooCommerce
-    .get("products/reviews?product_id=" + productId)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+    // Filter reviews based on the email address
+    const filteredReviews = allReviews.filter(
+      (review) => review.reviewer_email === email
+    );
+
+    return filteredReviews;
+  } catch (error) {
+    console.log(error.response.data);
+    throw error; // Optionally rethrow the error to propagate it further
+  }
 }
 
 async function updateRating(ratingid, data) {

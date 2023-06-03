@@ -10,14 +10,14 @@ import { useStore } from "../../zustand/store";
 import { getCustomer } from "@/app/lib/woocommerce";
 
 const Contact = () => {
-  const { user, accountemail, setuser, accountfirstname, accountlastname } =
-    useStore((state) => state);
+  const { user, accountemail, setuser } = useStore((state) => state);
 
   //automatically fill out name
   useEffect(() => {
     if (user) {
       setFname(user.first_name || "");
       setLname(user.last_name || "");
+      setPhone(user.billing.phone || "");
     }
   }, [user]);
 

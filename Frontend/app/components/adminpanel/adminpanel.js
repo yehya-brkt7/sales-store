@@ -7,6 +7,7 @@ import { getOrders, updateOrder, deleteOrder } from "../../lib/woocommerce";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStore } from "../../zustand/store";
+import { Telex } from "next/font/google";
 
 const Adminpanel = () => {
   const { accountimage, setaccountimage } = useStore((state) => state);
@@ -86,11 +87,23 @@ const Adminpanel = () => {
                             />
                           </div>
                           <div className="col-md-9 text-left mt-sm-2">
-                            <h4>name</h4>
+                            <h4>name and number</h4>
                             <p className="font-weight-light">
                               {order.billing.first_name + " "}
-                              {order.billing.last_name}
+                              {order.billing.last_name} / {"  "}
+                              <a
+                                href={`tel:${order.billing.phone}`}
+                                style={{
+                                  color: "#0d6efd",
+                                  textDecoration: "underline",
+                                  cursor: "pointer",
+                                }}
+                                target="_blank"
+                              >
+                                {order.billing.phone}
+                              </a>
                             </p>
+
                             <h4>location</h4>
                             <p className="font-weight-light">
                               {order.billing.city}, {order.billing.address_1},{" "}

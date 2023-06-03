@@ -34,14 +34,23 @@ export default function BasicRating({ productdetail }) {
     rating: rating,
   };
 
+  const dataupdate = {
+    rating: rating,
+  };
+
   const handleRating = async () => {
     try {
-      const response = await submitRating(data);
-      if (response && response.status === 201) {
-        toast("Rating Submitted");
+      const response = await getRating(productdetail.id, user.email);
+
+      if (response.length > 0) {
+        const res = await updateRating(response[0].id, dataupdate);
+        toast.success("rating updated");
+      } else {
+        const res = await submitRating(data);
+        toast.success("rating submitted");
       }
-    } catch {
-      toast("you already submitted a rating");
+    } catch (error) {
+      toast.error("error submitting rating" + error.message);
     }
   };
 
@@ -64,9 +73,15 @@ export default function BasicRating({ productdetail }) {
         }}
       />
 
-      <Typography style={{ marginTop: "55px" }}>
-        Rating <br></br> {productdetail.average_rating}{" "}
-        <i class="bi bi-star"></i>
+      <Typography
+        style={{
+          marginTop: "55px",
+        }}
+      >
+        <span>
+          Average Rating <br></br> {productdetail.average_rating}{" "}
+          <i class="bi bi-star"></i>
+        </span>
       </Typography>
     </Box>
   );
