@@ -7,7 +7,7 @@ import BasicRating from "./inputs/rating";
 // import Typography from "@mui/material/Typography";
 import { useStore } from "../../zustand/store";
 import Sizedropdown from "./inputs/sizedropdown";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import RelatedProducts from "./relatedproducts/relatedproducts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
