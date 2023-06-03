@@ -9,6 +9,15 @@ const Gallery = ({ productdetail }) => {
   const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
+    productdetail.attributes[1].options
+      .filter((color) => color !== "all")
+      .forEach((color) => {
+        const image = new Image();
+        image.src = getProductImageByColorAndOption(color, selectedView);
+      });
+  }, [selectedView]);
+
+  useEffect(() => {
     setSelectedImage(
       getProductImageByColorAndOption(productcolor, selectedView)
     );
