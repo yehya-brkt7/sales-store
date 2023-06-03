@@ -3,10 +3,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   padding-top: 20px;
   width: 100%;
+  margin-top: 100px;
 }
 
 .container {
@@ -75,24 +76,17 @@
   width: 360px;
   padding: 15px;
   margin: 25px auto;
-  border-top-left-radius: 25%;
+  /* border-top-left-radius: 25%;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-right-radius: 5px; */
   transition: transform 0.2s linear 0s;
-  --s: 360px; /* the size of the image */
-  --b: 6px; /* the border thickness*/
-  --g: 8px; /* the gap */
-  --c: #007bff; /* the color */
-
-  outline-offset: calc(var(--s) / -2);
   cursor: pointer;
-  transition: 0.3s;
-  background-color: wheat;
+  background-color: white;
 }
 
 .el-wrapper:hover {
-  transform: scale(1.02);
+  transform: scale(0.98);
   outline: var(--b) solid var(--c);
   outline-offset: var(--g);
 }

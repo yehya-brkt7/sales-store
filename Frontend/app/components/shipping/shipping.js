@@ -24,10 +24,20 @@ const Shipping = () => {
   const router = useRouter();
 
   //restore email from local storage
+
   useEffect(() => {
-    const storedEmail = localStorage.getItem("accountemail");
-    getCustomer(accountemail == "" ? storedEmail : accountemail, setuser);
-  }, [user.city, user.address_1, user.address_2]);
+    if (accountemail === "") {
+      const storedEmail = localStorage.getItem("accountemail");
+
+      const fetchData = async () => {
+        try {
+          await getCustomer(storedEmail, setuser);
+        } catch (error) {}
+      };
+
+      fetchData();
+    }
+  }, [accountemail]);
 
   //automatically fill user data
   useEffect(() => {

@@ -198,7 +198,7 @@ const Trending = ({ products }) => {
 
                               <a
                                 onClick={() =>
-                                  handleClick(p.id, p.categories[0].name)
+                                  handleClick(p.categories[0].name)
                                 }
                                 className={styles.cart}
                                 href="#"

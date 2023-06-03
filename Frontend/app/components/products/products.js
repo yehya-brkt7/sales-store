@@ -41,7 +41,9 @@ function Products({ products }) {
   //navigate to product
   const handleClick = (id, type) => {
     setrelatedproducttype(type);
+
     router.push(`/products/${id}`);
+    // window.scrollTo({ top: 0 });
   };
 
   //filter all products based on filter options

@@ -21,7 +21,7 @@ const Checkout = () => {
 
       getCustomer(storedEmail, setuser);
     }
-  }, []);
+  }, [accountemail]);
 
   //empty cart if order is made
   useEffect(() => {

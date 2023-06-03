@@ -17,7 +17,7 @@ async function Profile() {
       getCustomer(storedEmail, setuser);
     }
     setaccountimage(localStorage.getItem("accountimage"));
-  }, []);
+  }, [accountemail]);
 
   return (
     <div className={styles.container}>

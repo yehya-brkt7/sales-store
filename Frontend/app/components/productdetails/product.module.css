@@ -141,3 +141,10 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.slider {
+  display: flex !important;
+  justify-content: center !important;
+
+  padding-left: 45px !important;
+}

@@ -7,7 +7,7 @@ import BasicRating from "./inputs/rating";
 // import Typography from "@mui/material/Typography";
 import { useStore } from "../../zustand/store";
 import Sizedropdown from "./inputs/sizedropdown";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import RelatedProducts from "./relatedproducts/relatedproducts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,13 +39,22 @@ const Productdetail = ({ productdetail }) => {
         } catch (error) {}
       };
 
-      if (storedEmail != "") fetchData();
+      fetchData();
     }
-    toast.warning("make sure you're logged in to shop!");
+  }, [accountemail]);
 
+  useEffect(() => {
     setSelectedsize("select size");
 
     fetchvariations(productdetail.id);
+  }, []);
+
+  useLayoutEffect(() => {
+    window.scroll({
+      top: 0,
+
+      behavior: "instant", // or 'instant' for immediate scroll
+    });
   }, []);
 
   //set all images
@@ -155,7 +164,7 @@ const Productdetail = ({ productdetail }) => {
           </section>
         </section>
         <ToastContainer position="bottom-right" />
-        {/* <RelatedProducts id={productdetail.id} /> */}
+        <RelatedProducts id={productdetail.id} />
       </main>
     </CartProvider>
   );

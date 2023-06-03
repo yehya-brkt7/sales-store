@@ -34,7 +34,7 @@ const Contact = () => {
 
       fetchData();
     }
-  }, []);
+  }, [accountemail]);
 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
