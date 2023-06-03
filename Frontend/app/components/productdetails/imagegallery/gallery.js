@@ -12,10 +12,10 @@ const Gallery = ({ productdetail }) => {
     productdetail.attributes[1].options
       .filter((color) => color !== "all")
       .forEach((color) => {
-        const image = new Image();
+        const image = new window.Image();
         image.src = getProductImageByColorAndOption(color, selectedView);
       });
-  }, [selectedView]);
+  }, []);
 
   useEffect(() => {
     setSelectedImage(
