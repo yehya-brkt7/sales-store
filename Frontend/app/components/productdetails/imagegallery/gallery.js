@@ -15,7 +15,7 @@ const Gallery = ({ productdetail }) => {
         const image = new window.Image();
         image.src = getProductImageByColorAndOption(color, selectedView);
       });
-  }, []);
+  }, [productdetail]);
 
   useEffect(() => {
     setSelectedImage(
