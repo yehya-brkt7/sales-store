@@ -66,7 +66,7 @@ const Checkout = () => {
       address_2: user.shipping.address_2 || "",
       city: user.shipping.city,
       email: user.email,
-      phone: user && user.billing.phone,
+      phone: user?.billing?.phone,
     },
     line_items: itemlist,
     status: "processing",
