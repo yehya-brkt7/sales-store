@@ -10,13 +10,7 @@ import Link from "next/link";
 import { signIn, useSession, signOut } from "next-auth/react";
 
 const Signup = () => {
-  const {
-    accountfirstname,
-    accountlastname,
-    accountemail,
-    setaccountimage,
-    accountimage,
-  } = useStore((state) => state);
+  const { setaccountimage, accountimage } = useStore((state) => state);
 
   const session = useSession();
 

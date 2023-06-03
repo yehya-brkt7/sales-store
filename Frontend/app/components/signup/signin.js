@@ -2,7 +2,11 @@
 
 import styles from "./signup.module.css";
 import { useStore } from "../../zustand/store";
-import { getCustomer, createCustomer } from "@/app/lib/woocommerce";
+import {
+  getCustomer,
+  createCustomer,
+  updateCustomer,
+} from "@/app/lib/woocommerce";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
@@ -10,30 +14,11 @@ import { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
 
 const Signin = ({ setIscustomer, userEmail, session }) => {
-  const { setuser } = useStore((state) => state);
+  const { setuser, user } = useStore((state) => state);
 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [phone, setPhone] = useState("");
-
-  //login user
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await getCustomer(userEmail, setuser);
-
-      if (Array.isArray(res.data) && res.data.length === 0) {
-        toast.error("email doesn't exist");
-      } else {
-        toast.success("successfull login!");
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-    localStorage.setItem("accountemail", userEmail);
-
-    return false;
-  };
 
   const data = {
     email: userEmail,
@@ -44,13 +29,25 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     },
   };
 
+  //login user
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await updateCustomer(user.id, data);
+      toast.success("account updated");
+    } catch (error) {}
+    localStorage.setItem("accountemail", userEmail);
+
+    return false;
+  };
+
   // create Account or login user
   const handleCreate = async (e) => {
     e.preventDefault();
+
     try {
       const res = await createCustomer(data, setuser);
 
-      console.log(res);
       if (res.status == 201) {
         toast.success("User Created");
       } else if (res.status == 400) {
@@ -59,6 +56,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     } catch (error) {
       handleSubmit(e);
     }
+
     localStorage.setItem("accountemail", userEmail);
 
     return false;
@@ -109,7 +107,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
             required
           />
           <button style={{ width: "270px" }} type="submit">
-            Create/Retrieve Customer Account
+            Create/Update Your Account
           </button>
         </form>
 

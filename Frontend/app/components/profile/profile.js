@@ -32,7 +32,7 @@ async function Profile() {
             <div className={`${styles.teamContent}`}>
               <h3 className={`${styles.name}`}>
                 {typeof user == "undefined" || user.first_name == ""
-                  ? "go to -> create account -> create/retrieve customer info to view info"
+                  ? "go to -> create account -> create/update customer info to view info"
                   : user.first_name}{" "}
               </h3>
               <h4 className={`${styles.title}`}>

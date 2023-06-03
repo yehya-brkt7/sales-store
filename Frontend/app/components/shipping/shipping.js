@@ -24,8 +24,6 @@ const Shipping = () => {
   useEffect(() => {
     const storedEmail = localStorage.getItem("accountemail");
     getCustomer(accountemail == "" ? storedEmail : accountemail, setuser);
-
-    console.log("user", user);
   }, [user.city, user.address_1, user.address_2]);
 
   //automatically fill user data
