@@ -7,7 +7,7 @@ import BasicRating from "./inputs/rating";
 // import Typography from "@mui/material/Typography";
 import { useStore } from "../../zustand/store";
 import Sizedropdown from "./inputs/sizedropdown";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import RelatedProducts from "./relatedproducts/relatedproducts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -48,41 +48,32 @@ const Productdetail = ({ productdetail }) => {
     fetchvariations(productdetail.id);
   }, []);
 
-  const memoizedImages = useMemo(
-    () => productdetail.images,
-    [productdetail.images]
-  );
-
   //set all images
   useEffect(() => {
     let imageSrc = "";
-    switch (productcolor) {
-      case "blue":
-        const blueImage = memoizedImages.find(
-          (image) => image.alt === "blue-side"
-        );
-        if (blueImage && blueImage.src) {
-          imageSrc = blueImage.src;
-        }
-        break;
-      case "red":
-        const redImage = memoizedImages.find(
-          (image) => image.alt === "red-side"
-        );
-        if (redImage && redImage.src) {
-          imageSrc = redImage.src;
-        }
-        break;
-      default:
-        const greenImage = memoizedImages.find(
-          (image) => image.alt === "green-side"
-        );
-        if (greenImage && greenImage.src) {
-          imageSrc = greenImage.src;
-        }
-        break;
-    }
 
+    if (productcolor === "blue") {
+      const blueImage = productdetail.images.find(
+        (image) => image.alt === "blue-side"
+      );
+      if (blueImage && blueImage.src) {
+        imageSrc = blueImage.src;
+      }
+    } else if (productcolor === "red") {
+      const redImage = productdetail.images.find(
+        (image) => image.alt === "red-side"
+      );
+      if (redImage && redImage.src) {
+        imageSrc = redImage.src;
+      }
+    } else {
+      const greenImage = productdetail.images.find(
+        (image) => image.alt === "green-side"
+      );
+      if (greenImage && greenImage.src) {
+        imageSrc = greenImage.src;
+      }
+    }
     const productID = `${productdetail.id}-${productcolor}`;
 
     setcartproduct({
