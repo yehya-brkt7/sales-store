@@ -20,18 +20,14 @@ async function getAllProducts() {
     const { data } = await wooCommerce.get("products");
 
     return data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 async function getProductById(id) {
   try {
     const { data } = await wooCommerce.get(`products/${id}`);
     return data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 async function getProductVariations(productId) {
@@ -57,21 +53,16 @@ async function getProductVariations(productId) {
         imageUrls,
       };
     });
-    console.log("variations", variations);
 
     return variations;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 async function submitRating(data) {
   try {
     const response = await wooCommerce.post("products/reviews", data);
     return { response }; // Return the response
-  } catch (error) {
-    throw error; // Throw the error to be caught by the caller
-  }
+  } catch (error) {}
 }
 async function getRating(productId, email) {
   try {
@@ -86,21 +77,14 @@ async function getRating(productId, email) {
     );
 
     return filteredReviews;
-  } catch (error) {
-    console.log(error.response.data);
-    throw error; // Optionally rethrow the error to propagate it further
-  }
+  } catch (error) {}
 }
 
 async function updateRating(ratingid, data) {
   wooCommerce
     .put("products/reviews/" + ratingid, data)
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+    .then((response) => {})
+    .catch((error) => {});
 }
 
 async function createCustomer(data, setfunction) {
@@ -133,24 +117,17 @@ async function getAllCustomers() {
 async function updateCustomer(id, data) {
   wooCommerce
     .put(`customers/${id}`, data)
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+    .then((response) => {})
+    .catch((error) => {});
 }
 
 async function createOrder(data) {
   wooCommerce
     .post("orders", data)
     .then((response) => {
-      console.log(response.data);
       return response;
     })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+    .catch((error) => {});
 }
 
 async function getOrders() {
@@ -158,7 +135,6 @@ async function getOrders() {
     const response = await wooCommerce.get("orders");
     return response.data;
   } catch (error) {
-    console.log(error.response.data);
     throw error;
   }
 }
@@ -166,12 +142,8 @@ async function getOrders() {
 async function updateOrder(id, data) {
   wooCommerce
     .put(`orders/${id}`, data)
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .then((response) => {})
+    .catch((error) => {});
 }
 
 async function deleteOrder(id) {
@@ -179,24 +151,17 @@ async function deleteOrder(id) {
     .delete(`orders/${id}`, {
       force: true,
     })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+    .then((response) => {})
+    .catch((error) => {});
 }
 
 async function getPaymentGatewayUrl(data, url) {
   wooCommerce
     .get(`payment_gateways/${data}`)
     .then((response) => {
-      console.log(response.data);
       return url;
     })
-    .catch((error) => {
-      console.log(error.response.data);
-    });
+    .catch((error) => {});
 }
 export {
   wooCommerce,
