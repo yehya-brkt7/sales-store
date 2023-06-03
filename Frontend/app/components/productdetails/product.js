@@ -44,36 +44,45 @@ const Productdetail = ({ productdetail }) => {
     toast.warning("make sure you're logged in to shop!");
 
     setSelectedsize("select size");
+
+    fetchvariations(productdetail.id);
   }, []);
+
+  const memoizedImages = useMemo(
+    () => productdetail.images,
+    [productdetail.images]
+  );
 
   //set all images
   useEffect(() => {
-    fetchvariations(productdetail.id);
-
     let imageSrc = "";
-
-    if (productcolor === "blue") {
-      const blueImage = productdetail.images.find(
-        (image) => image.alt === "blue-side"
-      );
-      if (blueImage && blueImage.src) {
-        imageSrc = blueImage.src;
-      }
-    } else if (productcolor === "red") {
-      const redImage = productdetail.images.find(
-        (image) => image.alt === "red-side"
-      );
-      if (redImage && redImage.src) {
-        imageSrc = redImage.src;
-      }
-    } else {
-      const greenImage = productdetail.images.find(
-        (image) => image.alt === "green-side"
-      );
-      if (greenImage && greenImage.src) {
-        imageSrc = greenImage.src;
-      }
+    switch (productcolor) {
+      case "blue":
+        const blueImage = memoizedImages.find(
+          (image) => image.alt === "blue-side"
+        );
+        if (blueImage && blueImage.src) {
+          imageSrc = blueImage.src;
+        }
+        break;
+      case "red":
+        const redImage = memoizedImages.find(
+          (image) => image.alt === "red-side"
+        );
+        if (redImage && redImage.src) {
+          imageSrc = redImage.src;
+        }
+        break;
+      default:
+        const greenImage = memoizedImages.find(
+          (image) => image.alt === "green-side"
+        );
+        if (greenImage && greenImage.src) {
+          imageSrc = greenImage.src;
+        }
+        break;
     }
+
     const productID = `${productdetail.id}-${productcolor}`;
 
     setcartproduct({
