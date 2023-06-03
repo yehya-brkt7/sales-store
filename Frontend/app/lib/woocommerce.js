@@ -115,10 +115,10 @@ async function getAllCustomers() {
 }
 
 async function updateCustomer(id, data) {
-  wooCommerce
-    .put(`customers/${id}`, data)
-    .then((response) => {})
-    .catch((error) => {});
+  try {
+    const response = wooCommerce.put(`customers/${id}`, data);
+    return response;
+  } catch {}
 }
 
 async function createOrder(data) {
@@ -134,9 +134,7 @@ async function getOrders() {
   try {
     const response = await wooCommerce.get("orders");
     return response.data;
-  } catch (error) {
-    throw error;
-  }
+  } catch (error) {}
 }
 
 async function updateOrder(id, data) {

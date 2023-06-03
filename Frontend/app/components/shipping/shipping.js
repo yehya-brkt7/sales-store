@@ -3,9 +3,10 @@
 import styles from "./shipping.module.css";
 import { useStore } from "../../zustand/store";
 import { getCustomer, updateCustomer } from "@/app/lib/woocommerce";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import SimpleMap from "./maps";
+import { useRouter } from "next/navigation";
 
 const Shipping = () => {
   const {
@@ -19,6 +20,8 @@ const Shipping = () => {
     home,
     sethome,
   } = useStore((state) => state);
+
+  const router = useRouter();
 
   //restore email from local storage
   useEffect(() => {
@@ -47,8 +50,12 @@ const Shipping = () => {
     },
   };
 
-  const handleSubmit = async () => {
-    updateCustomer(user.id, data);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (city != "" && home != "" && street != "") {
+      const response = await updateCustomer(user.id, data);
+      router.push("/checkout");
+    }
   };
 
   return (
@@ -57,7 +64,7 @@ const Shipping = () => {
         <h2>Fill your shipping details!</h2>
 
         <section className={styles.container}>
-          <div className={styles.firstcolumn}>
+          <form onSubmit={handleSubmit} className={styles.firstcolumn}>
             <div className={styles.inputcontainer}>
               City
               <input
@@ -83,7 +90,7 @@ const Shipping = () => {
             <div className={styles.inputcontainer}>
               Home
               <input
-                type="email"
+                type="text"
                 placeholder="Home"
                 name="home"
                 value={home}
@@ -95,19 +102,14 @@ const Shipping = () => {
               {" "}
               You can use google maps to locate (optional) (turned off for now)
             </p>
-          </div>
+            <button style={{ marginTop: "-10px" }} type="submit">
+              Checkout
+            </button>
+          </form>
 
           <SimpleMap />
         </section>
-        <Link href="/checkout">
-          <button
-            style={{ marginTop: "-10px" }}
-            onClick={() => handleSubmit()}
-            type="submit"
-          >
-            Checkout
-          </button>
-        </Link>
+        <Link href="/checkout"></Link>
       </div>
     </main>
   );
