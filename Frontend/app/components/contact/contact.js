@@ -17,7 +17,7 @@ const Contact = () => {
     if (user) {
       setFname(user.first_name || "");
       setLname(user.last_name || "");
-      setPhone(user.billing.phone || "");
+      setPhone(user?.billing?.phone || "");
     }
   }, [user]);
 
