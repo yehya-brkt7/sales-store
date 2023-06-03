@@ -76,18 +76,21 @@ const Gallery = ({ productdetail }) => {
           tabIndex="-1"
           onClick={() => handleView("side")}
           src={getProductImageByColorAndOption(productcolor, "side")}
+          loading="lazy"
         />
         <img
           className={styles.thumbnailimage}
           tabIndex="-1"
           onClick={() => handleView("top")}
           src={getProductImageByColorAndOption(productcolor, "top")}
+          loading="lazy"
         />
         <img
           className={styles.thumbnailimage}
           tabIndex="-1"
           onClick={() => handleView("back")}
           src={getProductImageByColorAndOption(productcolor, "back")}
+          loading="lazy"
         />
       </div>
     </section>
