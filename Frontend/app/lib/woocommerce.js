@@ -1,5 +1,4 @@
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
-import { toast } from "react-toastify";
 
 const wooCommerce = new WooCommerceRestApi({
   url: process.env.NEXT_PUBLIC_WC_STORE_URL,

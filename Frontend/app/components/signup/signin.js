@@ -20,6 +20,16 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
   const [lname, setLname] = useState("");
   const [phone, setPhone] = useState("");
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getCustomer(userEmail, setuser);
+      } catch (error) {}
+    };
+
+    fetchData();
+  }, []);
+
   const data = {
     email: userEmail,
     first_name: fname,
@@ -33,8 +43,9 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await updateCustomer(user.id, data);
-      toast.success("account updated");
+      const res = await updateCustomer(userEmail, data);
+
+      toast.success("login successful");
     } catch (error) {}
     localStorage.setItem("accountemail", userEmail);
 
