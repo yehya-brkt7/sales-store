@@ -28,7 +28,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     };
 
     fetchData();
-  }, []);
+  }, [userEmail]);
 
   const data = {
     email: userEmail,
@@ -43,7 +43,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await updateCustomer(userEmail, data);
+      const res = await updateCustomer(user.id, data);
 
       toast.success("login successful");
     } catch (error) {}
