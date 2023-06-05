@@ -112,7 +112,7 @@ const Adminpanel = () => {
 
                             <a
                               style={{ cursor: "pointer" }}
-                              href={order && order.meta_data[0].value}
+                              href={order?.meta_data[0]?.value}
                               target="_blank"
                             >
                               view location
