@@ -137,10 +137,12 @@
   justify-content: flex-start;
   border-bottom: 0.1px solid grey;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
-.test {
+.accordion {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+  width: 80%;
 }

@@ -80,7 +80,7 @@ async function Profile() {
                 {typeof user == "undefined" ? "" : user.email}
               </h4>
             </div>
-            <div className={styles.test}>
+            <div className={styles.accordion}>
               <AccordionDetails customerLineItems={customerLineItems} />
             </div>
           </div>

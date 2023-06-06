@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function AccordionDetails({ customerLineItems }) {
   return (
-    <Accordion style={{ width: "410px" }}>
+    <Accordion>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Items Bought</Accordion.Header>
         <Accordion.Body>
