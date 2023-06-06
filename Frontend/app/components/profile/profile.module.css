@@ -14,7 +14,13 @@
   overflow: hidden;
   position: relative;
   width: 50vw;
-  height: 400px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 @media only screen and (max-width: 720px) {
@@ -116,4 +122,25 @@
 .ourTeam .social li a:hover {
   color: #1369ce;
   background-color: #f7f5ec;
+}
+
+.itemimage {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 0px;
+}
+
+.itemdetails {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+  justify-content: flex-start;
+  border-bottom: 0.1px solid grey;
+  padding-bottom: 10px;
+}
+
+.test {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }

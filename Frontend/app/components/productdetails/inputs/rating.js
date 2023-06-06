@@ -14,7 +14,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function BasicRating({ productdetail }) {
+export default function BasicRating({ productdetail, style }) {
   const { user, setuser, accountemail } = useStore((state) => state);
   const [rating, setRating] = useState(0);
 
@@ -63,6 +63,7 @@ export default function BasicRating({ productdetail }) {
         flexDirection: "column",
         alignItems: "center",
       }}
+      className={style}
     >
       <button onClick={() => handleRating()}>send review</button>
       <Rating

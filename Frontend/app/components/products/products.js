@@ -43,7 +43,6 @@ function Products({ products }) {
     setrelatedproducttype(type);
 
     router.push(`/products/${id}`);
-    // window.scrollTo({ top: 0 });
   };
 
   //filter all products based on filter options

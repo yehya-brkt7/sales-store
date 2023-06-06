@@ -2,6 +2,7 @@ import styles from "./gallery.module.css";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useStore } from "../../../zustand/store";
+import ImageGallery from "react-image-gallery";
 
 const Gallery = ({ productdetail }) => {
   const { productcolor, setproductcolor } = useStore((state) => state);

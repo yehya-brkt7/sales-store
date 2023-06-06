@@ -7,6 +7,7 @@ import "aos/dist/aos.css";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { getAllProducts } from "@/app/lib/woocommerce";
 
 // Import Swiper styles
 import "swiper/css";
@@ -15,10 +16,30 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 const RelatedProducts = ({ id }) => {
-  const { relatedproducttype, storeproducts } = useStore((state) => state);
+  const { relatedproducttype, setrelatedproducttype } = useStore(
+    (state) => state
+  );
+
+  const [storeproducts, setStoreproducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
+
+    const fetchProducts = async () => {
+      try {
+        const products = await getAllProducts();
+        setStoreproducts(products);
+        setLoading(true);
+      } catch (error) {
+        console.log("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+
+    if (relatedproducttype != "")
+      localStorage.setItem("relatedtype", relatedproducttype);
   }, []);
 
   const handleClick = () => {
@@ -34,6 +55,8 @@ const RelatedProducts = ({ id }) => {
   );
 
   useEffect(() => {
+    // Save storeproducts in local storage
+
     setProductslength(
       storeproducts.filter(
         (product) =>
@@ -42,115 +65,123 @@ const RelatedProducts = ({ id }) => {
     );
   }, [storeproducts]);
 
+  useEffect(() => {
+    if (relatedproducttype == "") {
+      setrelatedproducttype(localStorage.getItem("relatedtype"));
+    }
+    console.log("type", relatedproducttype);
+  }, [relatedproducttype]);
+
   return (
     <main className={styles.main}>
       <h1>You may also like</h1>
 
       <div className={styles.container}>
-        <Swiper
-          // install Swiper modules
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          spaceBetween={20}
-          navigation
-          pagination={{ clickable: true }}
-          breakpoints={{
-            300: {
-              slidesPerView: 1,
-            },
+        {loading ? (
+          <Swiper
+            // install Swiper modules
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={20}
+            navigation
+            pagination={{ clickable: true }}
+            breakpoints={{
+              300: {
+                slidesPerView: 1,
+              },
 
-            840: {
-              slidesPerView: productsLength == 1 ? 1 : 2,
-            },
+              840: {
+                slidesPerView: productsLength == 1 ? 1 : 2,
+              },
 
-            1300: {
-              slidesPerView:
-                productsLength == 1 ? 1 : productsLength == 2 ? 2 : 3,
-            },
-          }}
-          className={styles.slider}
-        >
-          {storeproducts.length === 0
-            ? ""
-            : storeproducts
+              1300: {
+                slidesPerView:
+                  productsLength == 1 ? 1 : productsLength == 2 ? 2 : 3,
+              },
+            }}
+            className={styles.slider}
+          >
+            {storeproducts
+              .filter(
+                (product) =>
+                  product.categories[0].name == relatedproducttype &&
+                  product.id != id
+              )
+              .sort((a, b) => b.price - a.price)
+              .map((p, index) => {
+                return (
+                  <SwiperSlide>
+                    <div
+                      data-aos="zoom-in-up"
+                      key={index}
+                      product={p}
+                      index={index}
+                      className={styles.productcontainer}
+                    >
+                      <div className={styles["page-wrapper"]}>
+                        <div className={styles["page-inner"]}>
+                          <div className={styles.row}>
+                            <div className={styles["el-wrapper"]}>
+                              <div className={styles["box-up"]}>
+                                <Image
+                                  loading="lazy"
+                                  width="200"
+                                  height="200"
+                                  className={styles.img}
+                                  src={
+                                    p.images.find((i) =>
+                                      i.name
+                                        .toLowerCase()
+                                        .includes("blue" || "red" || "green")
+                                    ).src
+                                  }
+                                  alt=""
+                                />
 
-                .filter(
-                  (product) =>
-                    product.categories[0].name == relatedproducttype &&
-                    product.id != id
-                )
-                .sort((a, b) => b.price - a.price)
-                .map((p, index) => {
-                  return (
-                    <SwiperSlide>
-                      <div
-                        data-aos="zoom-in-up"
-                        key={index}
-                        product={p}
-                        index={index}
-                        className={styles.productcontainer}
-                      >
-                        <div className={styles["page-wrapper"]}>
-                          <div className={styles["page-inner"]}>
-                            <div className={styles.row}>
-                              <div className={styles["el-wrapper"]}>
-                                <div className={styles["box-up"]}>
-                                  <Image
-                                    loading="lazy"
-                                    width="200"
-                                    height="200"
-                                    className={styles.img}
-                                    src={
-                                      p.images.find((i) =>
-                                        i.name
-                                          .toLowerCase()
-                                          .includes("blue" || "red" || "green")
-                                      ).src
-                                    }
-                                    alt=""
-                                  />
+                                <div className={styles["img-info"]}>
+                                  <div className={styles["info-inner"]}>
+                                    <span className={styles["p-name"]}>
+                                      {p.name}
+                                    </span>
 
-                                  <div className={styles["img-info"]}>
-                                    <div className={styles["info-inner"]}>
-                                      <span className={styles["p-name"]}>
-                                        {p.name}
-                                      </span>
-
-                                      {/* <span className={styles["p-company"]}>
+                                    {/* <span className={styles["p-company"]}>
                             {p.type}
                           </span> */}
-                                    </div>
                                   </div>
                                 </div>
+                              </div>
 
-                                <div className={styles["box-down"]}>
-                                  <div className={styles["h-bg"]}>
-                                    <div className={styles["h-bg-inner"]}></div>
-                                  </div>
-
-                                  <Link
-                                    href={`/products/${p.id}`}
-                                    className={styles.cart}
-                                    onClick={handleClick}
-                                  >
-                                    <span className={styles.price}>
-                                      {p.price}$
-                                    </span>
-                                    <span className={styles["add-to-cart"]}>
-                                      <span className={styles.txt}>
-                                        View Item
-                                      </span>
-                                    </span>
-                                  </Link>
+                              <div className={styles["box-down"]}>
+                                <div className={styles["h-bg"]}>
+                                  <div className={styles["h-bg-inner"]}></div>
                                 </div>
+
+                                <Link
+                                  href={`/products/${p.id}`}
+                                  className={styles.cart}
+                                  onClick={handleClick}
+                                >
+                                  <span className={styles.price}>
+                                    {p.price}$
+                                  </span>
+                                  <span className={styles["add-to-cart"]}>
+                                    <span className={styles.txt}>
+                                      View Item
+                                    </span>
+                                  </span>
+                                </Link>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </SwiperSlide>
-                  );
-                })}
-        </Swiper>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+          </Swiper>
+        ) : (
+          <>loading...</>
+        )}
       </div>
     </main>
   );

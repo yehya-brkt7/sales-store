@@ -1,6 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import url("https://fonts.googleapis.com/css2?family=Koulen&display=swap");
+@import "~react-image-gallery/styles/css/image-gallery.css";
 
 .app {
   font-family: "Koulen", cursive !important;

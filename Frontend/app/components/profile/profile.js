@@ -1,9 +1,10 @@
 "use client";
 
 import styles from "./profile.module.css";
-import { getCustomer } from "@/app/lib/woocommerce";
+import { getCustomer, getOrders } from "@/app/lib/woocommerce";
 import { useStore } from "../../zustand/store";
 import { useEffect, useState } from "react";
+import AccordionDetails from "./accordion";
 
 async function Profile() {
   const { user, accountemail, setuser, accountimage, setaccountimage } =
@@ -18,6 +19,45 @@ async function Profile() {
     }
     setaccountimage(localStorage.getItem("accountimage"));
   }, [accountemail]);
+
+  const [customerOrder, setCustomerOrders] = useState([]);
+  useEffect(() => {
+    const getOrderHistory = async () => {
+      try {
+        const res = await getOrders();
+
+        const orders = res.filter((order) => order.billing.email == user.email);
+
+        setCustomerOrders(orders);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    getOrderHistory();
+  }, [user]);
+
+  const [customerLineItems, setCustomerLineItems] = useState([]);
+  useEffect(() => {
+    const getAllLineItems = () => {
+      const lineItems = customerOrder.flatMap((order) => order.line_items);
+      const uniqueItems = [];
+
+      // Iterate through the line items and check for duplicates based on item name
+      lineItems.forEach((item) => {
+        const existingItem = uniqueItems.find(
+          (uniqueItem) => uniqueItem.name === item.name
+        );
+        if (!existingItem) {
+          uniqueItems.push(item);
+        }
+      });
+
+      setCustomerLineItems(uniqueItems);
+    };
+
+    getAllLineItems();
+  }, [customerOrder]);
 
   return (
     <div className={styles.container}>
@@ -40,36 +80,9 @@ async function Profile() {
                 {typeof user == "undefined" ? "" : user.email}
               </h4>
             </div>
-            <ul className={`${styles.social}`}>
-              <li>
-                <a
-                  href="https://codepen.io/collection/XdWJOQ/"
-                  className="fa fa-facebook"
-                  aria-hidden="true"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="https://codepen.io/collection/XdWJOQ/"
-                  className="fa fa-twitter"
-                  aria-hidden="true"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="https://codepen.io/collection/XdWJOQ/"
-                  className="fa fa-google-plus"
-                  aria-hidden="true"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="https://codepen.io/collection/XdWJOQ/"
-                  className="fa fa-linkedin"
-                  aria-hidden="true"
-                ></a>
-              </li>
-            </ul>
+            <div className={styles.test}>
+              <AccordionDetails customerLineItems={customerLineItems} />
+            </div>
           </div>
         </div>
         <div className="col-12 col-sm-6 col-md-4 col-lg-3"></div>

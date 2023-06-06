@@ -174,6 +174,15 @@ async function deleteOrder(id) {
     .catch((error) => {});
 }
 
+async function getCustomerOrderHistory(customerId) {
+  try {
+    const response = wooCommerce.get(`orders?customer=${customerId}`);
+    return response;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 async function getPaymentGatewayUrl(data, url) {
   wooCommerce
     .get(`payment_gateways/${data}`)
@@ -198,5 +207,6 @@ export {
   getOrders,
   updateOrder,
   deleteOrder,
+  getCustomerOrderHistory,
   getPaymentGatewayUrl,
 };

@@ -47,6 +47,7 @@ const Adminpanel = () => {
   //delete order
   const handleDelete = async (id) => {
     await deleteOrder(id);
+
     toast.success("order deleted!");
   };
 
@@ -114,6 +115,7 @@ const Adminpanel = () => {
                               style={{ cursor: "pointer" }}
                               href={order?.meta_data[0]?.value}
                               target="_blank"
+                              SXXXXXXXXXX
                             >
                               view location
                             </a>
