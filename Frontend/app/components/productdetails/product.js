@@ -49,6 +49,18 @@ const Productdetail = ({ productdetail }) => {
   }, [accountemail]);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      if (user.email == "") {
+        toast.warning("please login to shop");
+      }
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
     setSelectedsize("select size");
 
     fetchvariations(productdetail.id);
