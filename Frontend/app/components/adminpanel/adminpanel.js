@@ -114,9 +114,7 @@ const Adminpanel = () => {
                               {order.billing.address_2}
                             </p>
 
-                            <div
-                              style={{ display: "flex", alignItems: "center" }}
-                            >
+                            <div>
                               <a
                                 style={{
                                   cursor: "pointer",
@@ -127,7 +125,7 @@ const Adminpanel = () => {
                               >
                                 view location
                               </a>
-
+                              <br></br>
                               <ModalDisplay items={order.line_items} />
                             </div>
                           </div>
