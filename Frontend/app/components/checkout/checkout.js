@@ -47,6 +47,17 @@ const Checkout = () => {
         product_id: parseInt(item.id.split("-")[0]),
 
         quantity: item.quantity,
+
+        meta_data: [
+          {
+            key: "Color",
+            value: item.color,
+          },
+          {
+            key: "Size",
+            value: item.size,
+          },
+        ],
       };
     });
 

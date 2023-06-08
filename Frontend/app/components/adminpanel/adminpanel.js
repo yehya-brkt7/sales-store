@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useStore } from "../../zustand/store";
 import { Telex } from "next/font/google";
+import ModalDisplay from "./modal";
 
 const Adminpanel = () => {
   const { accountimage, setaccountimage } = useStore((state) => state);
@@ -32,6 +33,8 @@ const Adminpanel = () => {
     };
 
     fetchData();
+
+    console.log("oreder", orders);
   }, [orders]);
 
   //update order
@@ -111,14 +114,22 @@ const Adminpanel = () => {
                               {order.billing.address_2}
                             </p>
 
-                            <a
-                              style={{ cursor: "pointer" }}
-                              href={order?.meta_data[0]?.value}
-                              target="_blank"
-                              SXXXXXXXXXX
+                            <div
+                              style={{ display: "flex", alignItems: "center" }}
                             >
-                              view location
-                            </a>
+                              <a
+                                style={{
+                                  cursor: "pointer",
+                                  marginRight: "10px",
+                                }}
+                                href={order?.meta_data[0]?.value}
+                                target="_blank"
+                              >
+                                view location
+                              </a>
+
+                              <ModalDisplay items={order.line_items} />
+                            </div>
                           </div>
                         </div>
                       </td>
