@@ -21,7 +21,7 @@ function ModalDisplay(items) {
           fontSize: "16px",
           letterSpacing: "3px",
           textDecoration: "underline",
-          marginLeft: "-13px",
+          padding: "0",
         }}
       >
         View Items

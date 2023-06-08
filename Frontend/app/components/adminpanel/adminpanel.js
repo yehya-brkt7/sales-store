@@ -114,11 +114,10 @@ const Adminpanel = () => {
                               {order.billing.address_2}
                             </p>
 
-                            <div>
+                            <div className={styles.links}>
                               <a
                                 style={{
                                   cursor: "pointer",
-                                  marginRight: "10px",
                                 }}
                                 href={order?.meta_data[0]?.value}
                                 target="_blank"
