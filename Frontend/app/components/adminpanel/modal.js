@@ -43,7 +43,7 @@ function ModalDisplay(items) {
                 }}
               ></span>
               <span>{item.meta_data[1].value}</span>
-              <img className={styles.itemimage} src={item.image.src}></img>
+              {/* <img className={styles.itemimage} src={item.image.src}></img> */}
             </div>
           ))}
         </Modal.Body>
