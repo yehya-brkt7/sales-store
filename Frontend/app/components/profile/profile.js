@@ -6,7 +6,7 @@ import { useStore } from "../../zustand/store";
 import { useEffect, useState } from "react";
 import AccordionDetails from "./accordion";
 
-async function Profile() {
+function Profile() {
   const { user, accountemail, setuser, accountimage, setaccountimage } =
     useStore((state) => state);
 
