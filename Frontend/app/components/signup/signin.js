@@ -45,7 +45,7 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     try {
       const res = await updateCustomer(user.id, data);
 
-      toast.success("login successful");
+      toast.success("user updated!");
     } catch (error) {}
     localStorage.setItem("accountemail", userEmail);
 
@@ -85,6 +85,9 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
     <main className={styles.main}>
       <div className={styles.names}>
         <h2>Create account to shop!</h2>
+        <h6 style={{ textAlign: "center" }}>
+          you can update account info if you already have an account
+        </h6>
         <form onSubmit={handleCreate} className={styles.names}>
           <input
             type="email"
