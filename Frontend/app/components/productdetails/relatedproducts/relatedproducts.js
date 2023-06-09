@@ -23,6 +23,13 @@ const RelatedProducts = ({ id }) => {
   const [storeproducts, setStoreproducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [productsLength, setProductslength] = useState(
+    storeproducts.filter(
+      (product) =>
+        product.categories[0].name == relatedproducttype && product.id != id
+    ).length
+  );
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
 
@@ -47,13 +54,6 @@ const RelatedProducts = ({ id }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const [productsLength, setProductslength] = useState(
-    storeproducts.filter(
-      (product) =>
-        product.categories[0].name == relatedproducttype && product.id != id
-    ).length
-  );
-
   useEffect(() => {
     // Save storeproducts in local storage
 
@@ -69,7 +69,6 @@ const RelatedProducts = ({ id }) => {
     if (relatedproducttype == "") {
       setrelatedproducttype(localStorage.getItem("relatedtype"));
     }
-    console.log("type", relatedproducttype);
   }, [relatedproducttype]);
 
   return (
@@ -77,7 +76,7 @@ const RelatedProducts = ({ id }) => {
       <h1>You may also like</h1>
 
       <div className={styles.container}>
-        {loading ? (
+        {loading && productsLength > 0 ? (
           <Swiper
             // install Swiper modules
             modules={[Navigation, Pagination, Scrollbar, A11y]}
