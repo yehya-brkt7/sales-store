@@ -49,18 +49,6 @@ const Productdetail = ({ productdetail }) => {
   }, [accountemail]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (user.email == "") {
-        toast.warning("please login to shop");
-      }
-    }, 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  useEffect(() => {
     setSelectedsize("select size");
 
     fetchvariations(productdetail.id);
@@ -197,11 +185,12 @@ const Productdetail = ({ productdetail }) => {
               </div>
 
               <button
-                disabled={user.email === "" ? true : false}
+                disabled={user.email == "" ? true : false}
                 className={
                   user.email == "" ? styles.disabledbutton : styles.button
                 }
                 onClick={() => handleCart()}
+                title={user.email == "" ? "please login to add to cart" : ""}
               >
                 <i class="bi bi-cart3"></i>add to cart
               </button>
@@ -210,7 +199,10 @@ const Productdetail = ({ productdetail }) => {
             <div className={styles.reviews}>
               <BasicRating
                 productdetail={productdetail}
-                style={!customerItem ? styles.disabledbutton : ""}
+                style={
+                  !customerItem || user.email == "" ? styles.disabledbutton : ""
+                }
+                customerItem={customerItem}
               />
             </div>
           </section>
