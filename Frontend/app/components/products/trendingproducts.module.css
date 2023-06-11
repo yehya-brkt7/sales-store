@@ -88,7 +88,8 @@
   outline-offset: calc(var(--s) / -2);
   cursor: pointer;
   transition: 0.3s;
-  background-color: wheat;
+  background-color: white;
+  box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.4);
 }
 
 .el-wrapper:hover {
