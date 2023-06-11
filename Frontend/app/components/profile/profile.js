@@ -74,7 +74,7 @@ function Profile() {
                 {typeof user == "undefined" || user.first_name == ""
                   ? "Sign in to view info"
                   : user.first_name + " "}
-                {user.last_name}
+                {user?.last_name || ""}
               </h3>
               <h4 className={`${styles.title}`}>
                 {typeof user == "undefined" ? "" : user.email}
