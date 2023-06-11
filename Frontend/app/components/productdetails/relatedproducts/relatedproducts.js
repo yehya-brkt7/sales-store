@@ -82,7 +82,6 @@ const RelatedProducts = ({ id }) => {
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={20}
             navigation
-            pagination={{ clickable: true }}
             breakpoints={{
               300: {
                 slidesPerView: 1,
