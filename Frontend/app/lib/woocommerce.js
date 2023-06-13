@@ -44,11 +44,7 @@ async function getProductById(id) {
 
       return data;
     }
-  } catch (error) {
-    // Handle any errors that occur during the API request
-    console.error("Error fetching product:", error);
-    throw error;
-  }
+  } catch (error) {}
 }
 
 async function getProductVariations(productId) {
@@ -113,9 +109,7 @@ async function createCustomer(data, setfunction) {
     const response = await wooCommerce.post("customers", data);
     setfunction(response.data);
     return response;
-  } catch (error) {
-    throw error;
-  }
+  } catch (error) {}
 }
 
 async function getCustomer(email, setFunction) {
@@ -123,9 +117,7 @@ async function getCustomer(email, setFunction) {
     const response = await wooCommerce.get("customers?email=" + email);
     setFunction(response.data[0]);
     return response;
-  } catch (error) {
-    throw error;
-  }
+  } catch (error) {}
 }
 
 async function getAllCustomers() {
@@ -178,9 +170,7 @@ async function getCustomerOrderHistory(customerId) {
   try {
     const response = wooCommerce.get(`orders?customer=${customerId}`);
     return response;
-  } catch (error) {
-    console.log(error.message);
-  }
+  } catch (error) {}
 }
 
 async function getPaymentGatewayUrl(data, url) {
