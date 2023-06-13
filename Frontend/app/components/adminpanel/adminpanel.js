@@ -126,13 +126,12 @@ const Adminpanel = () => {
                               </a>
                               <br></br>
                               <ModalDisplay items={order.line_items} />
+                              {order.payment_method_title}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td data-th="Price">
-                        ${order.total} <br></br> {order.payment_method_title}
-                      </td>
+                      <td data-th="Price">${order.total}</td>
 
                       <td data-th="Quantity">
                         <div className="quantity-input text-center">
