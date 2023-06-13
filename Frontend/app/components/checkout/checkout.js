@@ -36,7 +36,10 @@ const Checkout = () => {
 
   const handleSelect = (e) => {
     setPaymentmethod(e.target.value);
-    setPaymentmethodtitle(e.target.name);
+
+    setPaymentmethodtitle(
+      e.target.options[e.target.selectedIndex].getAttribute("name")
+    );
   };
 
   //pass itemList to checkout data
@@ -102,6 +105,10 @@ const Checkout = () => {
       toast.error("failed to make order");
     }
   };
+
+  useEffect(() => {
+    console.log("pmt", paymentmethodTitle);
+  }, [paymentmethodTitle]);
 
   return (
     <div className={styles.mainscreen}>
