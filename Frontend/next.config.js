@@ -8,6 +8,7 @@ module.exports = {
     domains: ["dev-nextjs-store.pantheonsite.io"],
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    // removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: true,
   },
 };
