@@ -5,6 +5,9 @@ const wooCommerce = new WooCommerceRestApi({
   consumerKey: process.env.NEXT_PUBLIC_WC_CONSUMER_KEY,
   consumerSecret: process.env.NEXT_PUBLIC_WC_CONSUMER_SECRET,
   version: "wc/v3",
+  axiosConfig: {
+    headers: {},
+  },
 });
 
 const wooCommercetest = new WooCommerceRestApi({
