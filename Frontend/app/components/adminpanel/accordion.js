@@ -15,17 +15,12 @@ function AccordionDetails({ name, productid }) {
     try {
       const variations = await getProductVariations(productid);
 
-      console.log("var", variations);
       setVariations(variations);
     } catch (error) {
       // Handle the error here
       toast.error("failed to load variations");
     }
   };
-
-  useEffect(() => {
-    fetchVariation();
-  }, [variations]);
 
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -50,8 +45,8 @@ function AccordionDetails({ name, productid }) {
         const res = await updateVariation(productid, item.id, data);
       }
     } catch (error) {
-      console.log("Error updating stock quantity:", error.message);
     } finally {
+      await fetchVariation();
       setLoading(false); // Reset loading state
     }
   };
@@ -77,8 +72,8 @@ function AccordionDetails({ name, productid }) {
         const res = await updateVariation(productid, item.id, data);
       }
     } catch (error) {
-      console.log("Error updating stock quantity:", error.message);
     } finally {
+      await fetchVariation();
       setLoading(false); // Reset loading state
     }
   };
