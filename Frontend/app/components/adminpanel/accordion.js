@@ -156,7 +156,7 @@ function AccordionDetails({ name, productid }) {
                                 className="quantity-button"
                                 onClick={() => decreasequantity(item)}
                                 style={{ display: "" }}
-                                disabled={loading}
+                                disabled={loading || item.stock_quantity == 0}
                               >
                                 <i class="bi bi-dash"></i>
                               </button>
