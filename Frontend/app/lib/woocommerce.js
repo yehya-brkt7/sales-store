@@ -71,11 +71,31 @@ async function getProductVariations(productId) {
         regularPrice: variation.regular_price,
         salePrice: variation.sale_price,
         imageUrls,
+        stock_quantity: variation.stock_quantity,
       };
     });
 
     return variations;
   } catch (error) {}
+}
+
+async function getVariation(productid, variationid) {
+  try {
+    const response = wooCommerce.get(
+      `products/${productid}/variations/${variationid}`
+    );
+    return response;
+  } catch {}
+}
+
+async function updateVariation(productid, variationid, data) {
+  try {
+    const response = wooCommerce.put(
+      `products/${productid}/variations/${variationid}`,
+      data
+    );
+    return response;
+  } catch {}
 }
 
 async function submitRating(data) {
@@ -190,6 +210,8 @@ export {
   getProductById,
   getProductVariations,
   getRating,
+  getVariation,
+  updateVariation,
   submitRating,
   updateRating,
   createCustomer,

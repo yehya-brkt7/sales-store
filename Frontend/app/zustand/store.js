@@ -59,6 +59,9 @@ export const useStore = create((set) => ({
   relatedproducttype: "",
   setrelatedproducttype: (value) => set(() => ({ relatedproducttype: value })),
 
+  variationid: "",
+  setvariationid: (value) => set(() => ({ variationid: value })),
+
   colors: [
     { id: 1, value: "blue" },
     { id: 2, value: "red" },

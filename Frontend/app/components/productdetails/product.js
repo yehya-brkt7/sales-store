@@ -16,6 +16,8 @@ import {
   getCustomer,
   getCustomerOrderHistory,
   getOrders,
+  getVariation,
+  updateVariation,
 } from "@/app/lib/woocommerce";
 import AccordionDetails from "./inputs/accordion";
 
@@ -29,9 +31,15 @@ const Productdetail = ({ productdetail }) => {
     setcartproduct,
     cartproduct,
     productcolor,
+    setproductcolor,
     selectedsize,
     setSelectedsize,
+    variationid,
+    setvariationid,
+    setproductid,
   } = useStore((state) => state);
+
+  const [loading, setLoading] = useState(false); // Add loading state
 
   //restore email from local storage to keep user logged in
   useEffect(() => {
@@ -52,6 +60,8 @@ const Productdetail = ({ productdetail }) => {
     setSelectedsize("select size");
 
     fetchvariations(productdetail.id);
+
+    setproductcolor("blue");
   }, []);
 
   const [customerOrder, setCustomerOrders] = useState([]);
@@ -145,16 +155,70 @@ const Productdetail = ({ productdetail }) => {
     }
   }, [productvariations]);
 
+  useEffect(() => {
+    productvariations.map((variation) =>
+      variation.attributes[0].option == productcolor
+        ? setvariationid(variation.id)
+        : ""
+    );
+  }, [productcolor]);
+
+  const [stockquantity, setStockquantity] = useState();
+  useEffect(() => {
+    const fetchvariation = async () => {
+      try {
+        const response = await getVariation(productdetail.id, variationid);
+
+        setStockquantity(response?.data?.stock_quantity);
+      } catch (error) {}
+    };
+
+    fetchvariation();
+  }, [variationid]);
+
+  useEffect(() => {
+    setproductid(productdetail.id);
+  }, [productdetail.id]);
+
   const { addItem } = useCart();
 
   //product size select
-  const handleCart = () => {
-    selectedsize === "select size"
-      ? toast.warning("Please select a size")
-      : (addItem(cartproduct),
-        toast.success(
-          `${cartproduct.name} added to cart with size: ${selectedsize} and color: ${productcolor}`
-        ));
+  const handleCart = async () => {
+    if (selectedsize === "select size") {
+      toast.warning("Please select a size");
+      return;
+    }
+
+    if (loading) return; // Disable button if loading
+    setLoading(true); // Set loading state
+
+    addItem(cartproduct);
+    toast.success(
+      `${cartproduct.name} added to cart with size: ${selectedsize} and color: ${productcolor}`
+    );
+
+    try {
+      // Fetch the current stock quantity
+      const response = await getVariation(productdetail.id, variationid);
+      const currentStockQuantity = response?.data?.stock_quantity;
+
+      if (currentStockQuantity > 0) {
+        // Decrease the stock quantity by 1
+        const updatedStockQuantity = currentStockQuantity - 1;
+
+        // Update the stock quantity using the WooCommerce REST API
+        const data = {
+          stock_quantity: updatedStockQuantity,
+        };
+
+        const res = await updateVariation(productdetail.id, variationid, data);
+        setStockquantity(res.data.stock_quantity);
+      }
+    } catch (error) {
+      console.log("Error updating stock quantity:", error.message);
+    } finally {
+      setLoading(false); // Reset loading state
+    }
   };
 
   return (
@@ -170,6 +234,7 @@ const Productdetail = ({ productdetail }) => {
         </section>
         <section className={styles.secondcolumn}>
           <h1 className={styles.title}>{productdetail.name}</h1>
+          <h5>quantity:{stockquantity}</h5>
 
           <section className={styles.infocontainer}>
             <div className={styles.firstinfocolumn}>
@@ -185,9 +250,15 @@ const Productdetail = ({ productdetail }) => {
               </div>
 
               <button
-                disabled={user.email == "" ? true : false}
+                disabled={
+                  user.email == ""
+                    ? true
+                    : false || loading || stockquantity == 0
+                }
                 className={
-                  user.email == "" ? styles.disabledbutton : styles.button
+                  user.email == "" || loading || stockquantity == 0
+                    ? styles.disabledbutton
+                    : styles.button
                 }
                 onClick={() => handleCart()}
                 title={user.email == "" ? "please login to add to cart" : ""}

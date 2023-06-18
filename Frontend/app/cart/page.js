@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import { CartProvider, useCart } from "react-use-cart";
+import { useStore } from "../zustand/store";
+import { getVariation, updateVariation } from "../lib/woocommerce";
+import { useState } from "react";
 
 const Cart = () => {
   const {
@@ -12,6 +15,93 @@ const Cart = () => {
     cartTotal,
     emptyCart,
   } = useCart();
+
+  const { variationid, productid } = useStore((state) => state);
+
+  const [loading, setLoading] = useState(false); // Add loading state
+
+  const increasequantity = async (item) => {
+    if (loading) return; // Disable button if loading
+    setLoading(true); // Set loading state
+    updateItemQuantity(item.id, item.quantity + 1);
+
+    try {
+      // Fetch the current stock quantity
+      const response = await getVariation(productid, variationid);
+      const currentStockQuantity = response?.data?.stock_quantity;
+
+      if (currentStockQuantity > 0) {
+        // Decrease the stock quantity by 1
+        const updatedStockQuantity = currentStockQuantity - 1;
+
+        // Update the stock quantity using the WooCommerce REST API
+        const data = {
+          stock_quantity: updatedStockQuantity,
+        };
+
+        const res = await updateVariation(productid, variationid, data);
+      }
+    } catch (error) {
+      console.log("Error updating stock quantity:", error.message);
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+  };
+
+  const decreasequantity = async (item) => {
+    if (loading) return; // Disable button if loading
+    setLoading(true); // Set loading state
+    updateItemQuantity(item.id, item.quantity - 1);
+
+    try {
+      // Fetch the current stock quantity
+      const response = await getVariation(productid, variationid);
+      const currentStockQuantity = response?.data?.stock_quantity;
+
+      if (currentStockQuantity > 0) {
+        // Decrease the stock quantity by 1
+        const updatedStockQuantity = currentStockQuantity - 1;
+
+        // Update the stock quantity using the WooCommerce REST API
+        const data = {
+          stock_quantity: updatedStockQuantity,
+        };
+
+        const res = await updateVariation(productid, variationid, data);
+      }
+    } catch (error) {
+      console.log("Error updating stock quantity:", error.message);
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+  };
+
+  const removeproduct = async (item) => {
+    if (loading) return; // Disable button if loading
+    setLoading(true); // Set loading state
+    removeItem(item.id);
+    try {
+      // Fetch the current stock quantity
+      const response = await getVariation(productid, variationid);
+      const currentStockQuantity = response?.data?.stock_quantity;
+
+      if (currentStockQuantity > 0) {
+        // Decrease the stock quantity by 1
+        const updatedStockQuantity = currentStockQuantity + item.quantity;
+
+        // Update the stock quantity using the WooCommerce REST API
+        const data = {
+          stock_quantity: updatedStockQuantity,
+        };
+
+        const res = await updateVariation(productid, variationid, data);
+      }
+    } catch (error) {
+      console.log("Error updating stock quantity:", error.message);
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+  };
 
   return (
     <CartProvider>
@@ -71,10 +161,9 @@ const Cart = () => {
                           <div className="quantity-input text-center">
                             <button
                               className="quantity-button"
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity + 1)
-                              }
+                              onClick={() => increasequantity(item)}
                               style={{ display: "" }}
+                              disabled={loading}
                             >
                               <i class="bi bi-plus"></i>
                             </button>
@@ -88,10 +177,9 @@ const Cart = () => {
                             />
                             <button
                               className="quantity-button"
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity - 1)
-                              }
+                              onClick={() => decreasequantity(item)}
                               style={{ display: "" }}
+                              disabled={loading}
                             >
                               <i class="bi bi-dash"></i>
                             </button>
@@ -100,7 +188,8 @@ const Cart = () => {
                         <td className="actions" data-th="">
                           <div className="text-center">
                             <button
-                              onClick={() => removeItem(item.id)}
+                              onClick={() => removeproduct(item)}
+                              disabled={loading}
                               className="btn btn-white border-secondary bg-white btn-md mb-2"
                             >
                               <i class="bi bi-trash"></i>

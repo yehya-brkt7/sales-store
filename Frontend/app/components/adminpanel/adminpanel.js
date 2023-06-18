@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useStore } from "../../zustand/store";
 import { Telex } from "next/font/google";
 import ModalDisplay from "./modal";
+import Link from "next/link";
 
 const Adminpanel = () => {
   const { accountimage, setaccountimage } = useStore((state) => state);
@@ -33,8 +34,6 @@ const Adminpanel = () => {
     };
 
     fetchData();
-
-    console.log("oreder", orders);
   }, [orders]);
 
   //update order
@@ -59,7 +58,16 @@ const Adminpanel = () => {
       <div className="container">
         <div className="row w-100">
           <div className="col-lg-12 col-md-12 col-12">
-            <h3 className="display-5 mb-2 text-center">Orders</h3>
+            <Link href="adminpanel/products">
+              <h5 className="display-6 mb-2 text-center">Products Manager</h5>
+            </Link>
+            <h3
+              style={{ marginTop: "60px" }}
+              className="display-5 mb-2 text-center"
+            >
+              Orders
+            </h3>
+
             <p className="mb-5 text-center">
               <i className="text-info font-weight-bold">total</i> orders{" "}
               {orders && orders.length}
