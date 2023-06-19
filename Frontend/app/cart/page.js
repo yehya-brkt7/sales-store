@@ -3,7 +3,8 @@ import Link from "next/link";
 import { CartProvider, useCart } from "react-use-cart";
 import { useStore } from "../zustand/store";
 import { getVariation, updateVariation } from "../lib/woocommerce";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import styles from "./cart.module.css";
 
 const Cart = () => {
   const {
@@ -21,6 +22,8 @@ const Cart = () => {
 
   const [loading, setLoading] = useState(false); // Add loading state
 
+  const [numberofitems, setNumberofitems] = useState(3);
+
   const increasequantity = async (item) => {
     if (loading) return; // Disable button if loading
     setLoading(true); // Set loading state
@@ -33,12 +36,12 @@ const Cart = () => {
           variation.attributes[0].option == item.size
       )[0].id;
 
-      console.log(varid);
-
       // Fetch the current stock quantity
       const response = await getVariation(productid, varid);
 
       const currentStockQuantity = response?.data?.stock_quantity;
+
+      setNumberofitems(currentStockQuantity);
 
       if (currentStockQuantity > 0) {
         // Decrease the stock quantity by 1
@@ -74,6 +77,7 @@ const Cart = () => {
       const response = await getVariation(productid, varid);
 
       const currentStockQuantity = response?.data?.stock_quantity;
+      setNumberofitems(currentStockQuantity);
 
       if (currentStockQuantity > 0) {
         // Decrease the stock quantity by 1
@@ -125,6 +129,10 @@ const Cart = () => {
       setLoading(false); // Reset loading state
     }
   };
+
+  useEffect(() => {
+    console.log("n", numberofitems);
+  }, [numberofitems]);
 
   return (
     <CartProvider>
@@ -186,7 +194,7 @@ const Cart = () => {
                               className="quantity-button"
                               onClick={() => increasequantity(item)}
                               style={{ display: "" }}
-                              disabled={loading}
+                              disabled={loading || numberofitems == 1}
                             >
                               <i class="bi bi-plus"></i>
                             </button>
@@ -214,6 +222,7 @@ const Cart = () => {
                               onClick={() => removeproduct(item)}
                               disabled={loading}
                               className="btn btn-white border-secondary bg-white btn-md mb-2"
+                              id={styles.btn}
                             >
                               <i class="bi bi-trash"></i>
                             </button>
