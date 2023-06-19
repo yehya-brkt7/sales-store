@@ -7,29 +7,10 @@ import {
   getVariation,
   updateVariation,
 } from "@/app/lib/woocommerce";
-import { useStore } from "../../zustand/store";
 import AccordionDetails from "./accordion";
 import { Form } from "react-bootstrap";
 
 const Products = () => {
-  const {
-    productvariations,
-    fetchvariations,
-    accountemail,
-    setuser,
-    user,
-    setcartproduct,
-    cartproduct,
-    productcolor,
-    setproductcolor,
-    selectedsize,
-    setSelectedsize,
-    variationid,
-    setvariationid,
-    setproductid,
-    productid,
-  } = useStore((state) => state);
-
   const [items, setitems] = useState([]);
   const [filter, setFilter] = useState("");
 

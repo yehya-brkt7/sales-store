@@ -133,7 +133,7 @@ const Productdetail = ({ productdetail }) => {
         imageSrc = greenImage.src;
       }
     }
-    const productID = `${productdetail.id}-${productcolor}`;
+    const productID = `${productdetail.id}-${productcolor}-${selectedsize}`;
 
     setcartproduct({
       id: productID,
@@ -153,32 +153,32 @@ const Productdetail = ({ productdetail }) => {
       const price = productvariations[0].regularPrice;
       setPrice(price);
     }
+
+    console.log(productvariations);
   }, [productvariations]);
-
-  useEffect(() => {
-    productvariations.map((variation) =>
-      variation.attributes[0].option == productcolor
-        ? setvariationid(variation.id)
-        : ""
-    );
-  }, [productcolor]);
-
-  const [stockquantity, setStockquantity] = useState();
-  useEffect(() => {
-    const fetchvariation = async () => {
-      try {
-        const response = await getVariation(productdetail.id, variationid);
-
-        setStockquantity(response?.data?.stock_quantity);
-      } catch (error) {}
-    };
-
-    fetchvariation();
-  }, [variationid]);
 
   useEffect(() => {
     setproductid(productdetail.id);
   }, [productdetail.id]);
+
+  const [stockquantity, setStockquantity] = useState("");
+  useEffect(() => {
+    productvariations.filter((variation) =>
+      variation.attributes[1].option == productcolor &&
+      variation.attributes[0].option == selectedsize
+        ? setStockquantity(variation.stock_quantity)
+        : ""
+    );
+  }, [productcolor, productvariations, selectedsize]);
+
+  useEffect(() => {
+    productvariations.filter((variation) =>
+      variation.attributes[1].option == productcolor &&
+      variation.attributes[0].option == selectedsize
+        ? setvariationid(variation.id)
+        : ""
+    );
+  }, [productcolor, selectedsize]);
 
   const { addItem } = useCart();
 
@@ -200,6 +200,7 @@ const Productdetail = ({ productdetail }) => {
     try {
       // Fetch the current stock quantity
       const response = await getVariation(productdetail.id, variationid);
+      console.log("var", response);
       const currentStockQuantity = response?.data?.stock_quantity;
 
       if (currentStockQuantity > 0) {

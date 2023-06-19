@@ -16,7 +16,8 @@ const Cart = () => {
     emptyCart,
   } = useCart();
 
-  const { variationid, productid } = useStore((state) => state);
+  const { variationid, productid, setvariationid, productvariations } =
+    useStore((state) => state);
 
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -26,8 +27,17 @@ const Cart = () => {
     updateItemQuantity(item.id, item.quantity + 1);
 
     try {
+      const varid = productvariations.filter(
+        (variation) =>
+          variation.attributes[1].option == item.color &&
+          variation.attributes[0].option == item.size
+      )[0].id;
+
+      console.log(varid);
+
       // Fetch the current stock quantity
-      const response = await getVariation(productid, variationid);
+      const response = await getVariation(productid, varid);
+
       const currentStockQuantity = response?.data?.stock_quantity;
 
       if (currentStockQuantity > 0) {
@@ -39,7 +49,7 @@ const Cart = () => {
           stock_quantity: updatedStockQuantity,
         };
 
-        const res = await updateVariation(productid, variationid, data);
+        const res = await updateVariation(productid, varid, data);
       }
     } catch (error) {
       console.log("Error updating stock quantity:", error.message);
@@ -55,19 +65,26 @@ const Cart = () => {
 
     try {
       // Fetch the current stock quantity
-      const response = await getVariation(productid, variationid);
+      const varid = productvariations.filter(
+        (variation) =>
+          variation.attributes[1].option == item.color &&
+          variation.attributes[0].option == item.size
+      )[0].id;
+
+      const response = await getVariation(productid, varid);
+
       const currentStockQuantity = response?.data?.stock_quantity;
 
       if (currentStockQuantity > 0) {
         // Decrease the stock quantity by 1
-        const updatedStockQuantity = currentStockQuantity - 1;
+        const updatedStockQuantity = currentStockQuantity + 1;
 
         // Update the stock quantity using the WooCommerce REST API
         const data = {
           stock_quantity: updatedStockQuantity,
         };
 
-        const res = await updateVariation(productid, variationid, data);
+        const res = await updateVariation(productid, varid, data);
       }
     } catch (error) {
       console.log("Error updating stock quantity:", error.message);
@@ -81,8 +98,14 @@ const Cart = () => {
     setLoading(true); // Set loading state
     removeItem(item.id);
     try {
+      const varid = productvariations.filter(
+        (variation) =>
+          variation.attributes[1].option == item.color &&
+          variation.attributes[0].option == item.size
+      )[0].id;
+
       // Fetch the current stock quantity
-      const response = await getVariation(productid, variationid);
+      const response = await getVariation(productid, varid);
       const currentStockQuantity = response?.data?.stock_quantity;
 
       if (currentStockQuantity > 0) {
@@ -94,7 +117,7 @@ const Cart = () => {
           stock_quantity: updatedStockQuantity,
         };
 
-        const res = await updateVariation(productid, variationid, data);
+        const res = await updateVariation(productid, varid, data);
       }
     } catch (error) {
       console.log("Error updating stock quantity:", error.message);

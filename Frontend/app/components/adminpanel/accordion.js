@@ -14,6 +14,7 @@ function AccordionDetails({ name, productid }) {
   const fetchVariation = async () => {
     try {
       const variations = await getProductVariations(productid);
+      console.log(variations);
 
       setVariations(variations);
     } catch (error) {
@@ -80,84 +81,99 @@ function AccordionDetails({ name, productid }) {
 
   return (
     <Accordion style={{ width: "100vw" }}>
-      <Accordion.Item eventKey="0" onClick={fetchVariation}>
+      <Accordion.Item eventKey="0" onClick={() => fetchVariation()}>
         <Accordion.Header>{name}</Accordion.Header>
         <Accordion.Body>
-          {" "}
-          {variations?.map((item) => (
-            <section className="pt-5 pb-5">
-              <div className="container">
-                <div className="row w-100">
-                  <div className="col-lg-12 col-md-12 col-12">
-                    <table
-                      id="shoppingCart"
-                      className="table table-condensed table-responsive"
-                    >
-                      <thead>
-                        <tr>
-                          <th style={{ width: "60%" }}>Product</th>
-                          <th style={{ width: "12%" }}>Price</th>
-                          <th style={{ width: "10%" }}>Stock Quantity</th>
-                          <th style={{ width: "16%" }}></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td data-th="Product">
-                            <div className="row">
-                              {/* <div className="col-md-3 text-left">
-                                <img
-                                  src={
-                                    item.attributes[0].option == "red"
-                                      ? item.imageUrls[0]
-                                      : item.attributes[0].option == "blue"
-                                      ? item.imageUrls[1]
-                                      : item.imageUrls[2]
-                                  }
-                                  alt=""
-                                  className="img-fluid d-none d-md-block rounded mb-2 shadow"
-                                />
-                              </div> */}
-                              <div className="col-md-9 text-left mt-sm-2">
-                                <h4>name: {name}</h4>
-                                <p className="font-weight-light">
-                                  color: {item.attributes[0].option}
-                                </p>
-                              </div>
-                            </div>
-                          </td>
-                          <td data-th="Price">${item.salePrice}</td>
+          <section className="pt-5 pb-5">
+            <div className="container">
+              <div className="row w-100">
+                <div className="col-lg-12 col-md-12 col-12">
+                  <table
+                    id="shoppingCart"
+                    className="table table-condensed table-responsive"
+                  >
+                    <thead>
+                      <tr>
+                        <th style={{ width: "60%" }}>Product</th>
+                        <th style={{ width: "12%" }}>Price</th>
+                        <th style={{ width: "10%" }}>Stock Quantity</th>
+                        <th style={{ width: "16%" }}></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {variations &&
+                        variations
+                          .sort((a, b) =>
+                            a.attributes[1].option.localeCompare(
+                              b.attributes[1].option
+                            )
+                          )
+                          .map((item) => (
+                            <tr>
+                              <td data-th="Product">
+                                <div className="row">
+                                  <div className="col-md-3 text-left">
+                                    <img
+                                      src={
+                                        [...new Set(item.imageUrls)].find(
+                                          (image) =>
+                                            image
+                                              .toLowerCase()
+                                              .includes(
+                                                item.attributes[1].option.toLowerCase()
+                                              )
+                                        ) ||
+                                        item.imageUrls[0] ||
+                                        ""
+                                      }
+                                      alt=""
+                                      className="img-fluid d-none d-md-block rounded mb-2 shadow"
+                                    />
+                                  </div>
+                                  <div className="col-md-9 text-left mt-sm-2">
+                                    <h4>name: {name}</h4>
+                                    <p className="font-weight-light">
+                                      color: {item.attributes[1].option} & size:{" "}
+                                      {item.attributes[0].option}
+                                    </p>
+                                  </div>
+                                </div>
+                              </td>
+                              <td data-th="Price">${item.salePrice}</td>
 
-                          <td data-th="Quantity">
-                            <div className="quantity-input text-center">
-                              <button
-                                className="quantity-button"
-                                onClick={() => increasequantity(item)}
-                                style={{ display: "" }}
-                                disabled={loading}
-                              >
-                                <i class="bi bi-plus"></i>
-                              </button>
-                              <input
-                                type="text"
-                                className="form-control form-control-lg text-center"
-                                value={item.stock_quantity}
+                              <td data-th="Quantity">
+                                <div className="quantity-input text-center">
+                                  <button
+                                    className="quantity-button"
+                                    onClick={() => increasequantity(item)}
+                                    style={{ display: "" }}
+                                    disabled={loading}
+                                  >
+                                    <i class="bi bi-plus"></i>
+                                  </button>
+                                  <input
+                                    type="text"
+                                    className="form-control form-control-lg text-center"
+                                    value={item.stock_quantity}
 
-                                // onChange={(e) =>
-                                //   setItemcount(parseInt(e.target.value))
-                                // }
-                              />
-                              <button
-                                className="quantity-button"
-                                onClick={() => decreasequantity(item)}
-                                style={{ display: "" }}
-                                disabled={loading || item.stock_quantity == 0}
-                              >
-                                <i class="bi bi-dash"></i>
-                              </button>
-                            </div>
-                          </td>
-                          {/* <td className="actions" data-th="">
+                                    // onChange={(e) =>
+                                    //   setItemcount(parseInt(e.target.value))
+                                    // }
+                                  />
+                                  <button
+                                    className="quantity-button"
+                                    onClick={() => decreasequantity(item)}
+                                    style={{ display: "" }}
+                                    disabled={
+                                      loading || item.stock_quantity == 0
+                                    }
+                                  >
+                                    <i class="bi bi-dash"></i>
+                                  </button>
+                                </div>
+                              </td>
+
+                              {/* <td className="actions" data-th="">
                             <div className="text-center">
                               <button
                                 onClick={() => removeproduct(item)}
@@ -167,16 +183,15 @@ function AccordionDetails({ name, productid }) {
                               </button>
                             </div>
                           </td> */}
-                        </tr>
-
-                        {/* Repeat the above 'tr' block for each product */}
-                      </tbody>
-                    </table>
-                  </div>
+                            </tr>
+                          ))}
+                      {/* Repeat the above 'tr' block for each product */}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </section>
-          ))}
+            </div>
+          </section>
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

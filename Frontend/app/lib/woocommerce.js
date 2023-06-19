@@ -58,11 +58,9 @@ async function getProductVariations(productId) {
 
     const variations = response.data.map((variation) => {
       // Get the variation's image URLs
-      const imageUrls = [
-        variation.image?.src || "",
-        variation.image?.src || "", // Replace with the actual image properties
-        variation.image?.src || "", // Replace with the actual image properties
-      ];
+      const imageUrls = response.data.map(
+        (variation) => variation.image?.src || ""
+      );
 
       // Return the modified variation object with the desired properties
       return {
