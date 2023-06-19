@@ -108,7 +108,7 @@ const Cart = () => {
       const response = await getVariation(productid, varid);
       const currentStockQuantity = response?.data?.stock_quantity;
 
-      if (currentStockQuantity > 0) {
+      if (currentStockQuantity >= 0) {
         // Decrease the stock quantity by 1
         const updatedStockQuantity = currentStockQuantity + item.quantity;
 
