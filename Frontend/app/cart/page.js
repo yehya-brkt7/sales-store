@@ -79,7 +79,7 @@ const Cart = () => {
       const currentStockQuantity = response?.data?.stock_quantity;
       setNumberofitems(currentStockQuantity);
 
-      if (currentStockQuantity > 0) {
+      if (currentStockQuantity >= 0) {
         // Decrease the stock quantity by 1
         const updatedStockQuantity = currentStockQuantity + 1;
 
