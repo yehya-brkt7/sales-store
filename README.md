@@ -1,18 +1,18 @@
 Nextjs 13 ecommerce + woocommerce headless cms
 
-you can: 
-login with google authentication using NextAuth 
-create/update your profile
-view and filter products 
-add products to cart with specific color and size
-update product quantity or remove products from cart
-add shipping information with google maps API
-choose checkout payment method
-view profile info including items bought
-rate items bought
-send a message or inquiry via email inside a contact form
-view orders in the admin panel that is only viewed by website owner
-change order status
+you can:  
+login with google authentication using NextAuth  
+create/update your profile  
+view and filter products  
+add products to cart with specific color and size  
+update product quantity or remove products from cart  
+add shipping information with google maps API  
+choose checkout payment method  
+view profile info including items bought  
+rate items bought  
+send a message or inquiry via email inside a contact form  
+view orders in the admin panel that is only viewed by website owner  
+change order status  
 manage products quantities specifically made to when items are bought in the physical store to keep track of items in stock
 
 
