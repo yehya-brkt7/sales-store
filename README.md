@@ -1,6 +1,7 @@
 Nextjs 13 ecommerce + woocommerce headless cms
 
-you can login with google authentication using NextAuth 
+you can: 
+login with google authentication using NextAuth 
 create/update your profile
 view and filter products 
 add products to cart with specific color and size
