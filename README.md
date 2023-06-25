@@ -1,5 +1,6 @@
 Nextjs 13 ecommerce + woocommerce headless cms
-Project Logo
+
+
 
 Description
 The project utilizes responsive UI components built with Next.js, HTML, CSS modules, and React Bootstrap. It also integrates and customizes WooCommerce functionalities for product listing, cart management, and checkout processes.
