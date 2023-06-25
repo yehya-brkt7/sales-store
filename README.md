@@ -1,11 +1,19 @@
 Nextjs 13 ecommerce + woocommerce headless cms
 
+you can login with google authentication using NextAuth, create/update your profile,
+view and filter products, addproducts to cart with specific color and size, 
+update product quantity or remove products from cart, add shipping information with 
+google maps API, choose checkout payment method, view profile info including items bought,
+rate items bought, send a message or inquiry via email inside a contact form, 
+view orders in the admin panel that is only viewed by website owner, change order
+status, manage products quantities specifically made to when items are bought in 
+the physical store to keep track of items in stock
 
 
-Description
+Description:
 The project utilizes responsive UI components built with Next.js, HTML, CSS modules, and React Bootstrap. It also integrates and customizes WooCommerce functionalities for product listing, cart management, and checkout processes.
 
-Features
+Features:
 Responsive UI Components: The project implements responsive UI components using Next.js, HTML, CSS modules, and React Bootstrap. This ensures that the website is accessible and user-friendly across different devices and screen sizes.
 
 WooCommerce Integration: The project seamlessly integrates and customizes WooCommerce functionalities. This includes product listing, cart management, and checkout processes. Users can easily browse and purchase products through a user-friendly interface.
