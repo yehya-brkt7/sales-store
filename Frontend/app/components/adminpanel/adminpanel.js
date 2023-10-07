@@ -93,7 +93,7 @@ const Adminpanel = () => {
                         <div className="row">
                           <div className="col-md-3 text-left">
                             <img
-                              src={accountimage}
+                              src="/avatarpic.png"
                               alt=""
                               className="img-fluid d-none d-md-block rounded mb-2 shadow"
                             />

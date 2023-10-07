@@ -46,8 +46,10 @@ const Signin = ({ setIscustomer, userEmail, session }) => {
       const res = await updateCustomer(user.id, data);
 
       toast.success("user updated!");
-    } catch (error) {}
-    localStorage.setItem("accountemail", userEmail);
+    } catch (error) {
+      localStorage.setItem("accountemail", userEmail);
+      console.log("err", error.message);
+    }
 
     return false;
   };
